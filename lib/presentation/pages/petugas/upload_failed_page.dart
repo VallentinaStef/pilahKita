@@ -4,14 +4,22 @@ import '../../theme/app_colors.dart';
 import '../../widgets/petugas/primary_action_button.dart';
 
 class UploadFailedPage extends StatelessWidget {
-  const UploadFailedPage({super.key});
+  final VoidCallback onRetry;
+  final VoidCallback onBackToTasks;
+
+  const UploadFailedPage({
+    super.key,
+    required this.onRetry,
+    required this.onBackToTasks,
+  });
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(title: const Text('Unggah bukti')),
       body: SafeArea(
         child: Center(
-          child: Padding(
+          child: SingleChildScrollView(
             padding: const EdgeInsets.all(24),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -33,7 +41,7 @@ class UploadFailedPage extends StatelessWidget {
                 ),
                 const SizedBox(height: 10),
                 const Text(
-                  'Tugas belum ditandai selesai. Foto tetap berada di halaman ini sampai dicoba kembali.',
+                  'Tugas belum ditandai selesai. Foto tetap tersimpan di layar pratinjau sampai proses unggah berhasil.',
                   textAlign: TextAlign.center,
                   style: TextStyle(color: AppColors.textGrey, height: 1.5),
                 ),
@@ -59,15 +67,14 @@ class UploadFailedPage extends StatelessWidget {
                 ),
                 const SizedBox(height: 22),
                 PrimaryActionButton(
-                  text: 'Coba lagi',
-                  onPressed: () => Navigator.pop(context),
+                  text: 'Unggah lagi',
+                  icon: Icons.cloud_upload_outlined,
+                  onPressed: onRetry,
                 ),
                 const SizedBox(height: 10),
                 OutlinedButton(
-                  onPressed: () {
-                    Navigator.popUntil(context, (route) => route.isFirst);
-                  },
-                  child: const Text('Kembali ke daftar tugas'),
+                  onPressed: onBackToTasks,
+                  child: const Text('Kembali ke tugas'),
                 ),
               ],
             ),
