@@ -64,6 +64,7 @@ flutter:
     - lib/assets/trash_top.svg
     - lib/assets/trash_bin.svg
     - lib/assets/icons8-trash-400.svg
+    - lib/assets/map-placeholder.png
 
   # To add assets to your application, add an assets section, like this:
   # assets:

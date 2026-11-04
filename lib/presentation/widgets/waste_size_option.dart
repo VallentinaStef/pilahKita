@@ -4,12 +4,14 @@ import '../theme/app_colors.dart';
 class WasteSizeOption extends StatelessWidget {
   final String label;
   final bool isSelected;
+  final bool hasError;
   final VoidCallback onTap;
 
   const WasteSizeOption({
     super.key,
     required this.label,
     required this.isSelected,
+    this.hasError = false,
     required this.onTap,
   });
 
@@ -27,6 +29,8 @@ class WasteSizeOption extends StatelessWidget {
               color:
                   isSelected
                       ? AppColors.darkGreen
+                      : hasError
+                      ? AppColors.red
                       : AppColors.border.withValues(alpha: 0.7),
               width: 1,
             ),

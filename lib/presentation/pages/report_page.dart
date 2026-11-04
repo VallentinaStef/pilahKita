@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import '../theme/app_colors.dart';
 import '../widgets/primary_button.dart';
+import '../../domain/entities/report_location.dart';
 import '../../domain/entities/waste_size.dart';
 import '../../domain/entities/waste_type.dart';
 import '../widgets/waste_size_option.dart';
 import '../widgets/waste_type_option.dart';
+import 'pick_location_page.dart';
 
 class ReportPage extends StatefulWidget {
   const ReportPage({super.key});
@@ -18,11 +20,29 @@ class _ReportPageState extends State<ReportPage> {
   WasteSize? selectedSize;
   bool hasPhoto = false;
   bool hasLocation = false;
+  ReportLocation? selectedLocation;
   bool showValidationError = false;
+
+  Future<void> openPickLocation() async {
+    final result = await Navigator.push<ReportLocation>(
+      context,
+      MaterialPageRoute(builder: (context) => const PickLocationPage()),
+    );
+    if (result != null) {
+      setState(() {
+        selectedLocation = result;
+        hasLocation = true;
+      });
+    }
+  }
 
   void validateAndSubmit() {
     setState(() {
-      showValidationError = !hasPhoto || selectedType == null || !hasLocation;
+      showValidationError =
+          !hasPhoto ||
+          selectedType == null ||
+          selectedSize == null ||
+          !hasLocation;
     });
   }
 
@@ -47,9 +67,9 @@ class _ReportPageState extends State<ReportPage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text(
+              Text(
                 'Laporkan sampah',
-                style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
+                style: Theme.of(context).textTheme.titleLarge,
               ),
               const SizedBox(height: 16),
               if (showValidationError) ...[
@@ -58,6 +78,7 @@ class _ReportPageState extends State<ReportPage> {
                       [
                         !hasPhoto,
                         selectedType == null,
+                        selectedSize == null,
                         !hasLocation,
                       ].where((missing) => missing).length,
                 ),
@@ -116,9 +137,13 @@ class _ReportPageState extends State<ReportPage> {
                         ),
                       ),
                       const SizedBox(height: 20),
-                      const Text(
+                      Text(
                         'Jenis sampah',
                         style: TextStyle(
+                          color:
+                              selectedType == null && showValidationError
+                                  ? AppColors.red
+                                  : AppColors.textDark,
                           fontSize: 12,
                           fontWeight: FontWeight.w600,
                         ),
@@ -140,9 +165,13 @@ class _ReportPageState extends State<ReportPage> {
                             }).toList(),
                       ),
                       const SizedBox(height: 20),
-                      const Text(
+                      Text(
                         'Seberapa banyak?',
                         style: TextStyle(
+                          color:
+                              selectedSize == null && showValidationError
+                                  ? AppColors.red
+                                  : AppColors.textDark,
                           fontSize: 12,
                           fontWeight: FontWeight.w600,
                         ),
@@ -155,6 +184,8 @@ class _ReportPageState extends State<ReportPage> {
                               return WasteSizeOption(
                                 label: size.label,
                                 isSelected: selectedSize == size,
+                                hasError:
+                                    selectedSize == null && showValidationError,
                                 onTap:
                                     () => setState(() => selectedSize = size),
                               );
@@ -162,29 +193,40 @@ class _ReportPageState extends State<ReportPage> {
                       ),
                       const SizedBox(height: 20),
                       // placeholder lokasi
-                      Container(
-                        width: double.infinity,
-                        height: 90,
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(16),
-                          border:
-                              !hasLocation && showValidationError
-                                  ? Border.all(color: AppColors.red, width: 2)
-                                  : null,
-                        ),
-                        child: const Icon(
-                          Icons.location_on,
-                          color: Colors.deepOrange,
+                      GestureDetector(
+                        onTap: openPickLocation,
+                        child: Container(
+                          width: double.infinity,
+                          height: 90,
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(16),
+                            border:
+                                !hasLocation && showValidationError
+                                    ? Border.all(color: AppColors.red, width: 2)
+                                    : null,
+                          ),
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(16),
+                            child: Stack(
+                              fit: StackFit.expand,
+                              children: [
+                                Image.asset(
+                                  'lib/assets/map-placeholder.png',
+                                  fit: BoxFit.cover,
+                                ),
+                              ],
+                            ),
+                          ),
                         ),
                       ),
                       const SizedBox(height: 8),
                       Text(
                         hasLocation
-                            ? 'Telkom University'
+                            ? selectedLocation!.address
                             : showValidationError
                             ? 'Titik lokasi belum dipilih'
-                            : 'Telkom University',
+                            : 'Ketuk untuk pilih lokasi',
                         style: TextStyle(
                           fontSize: 12,
                           color:
