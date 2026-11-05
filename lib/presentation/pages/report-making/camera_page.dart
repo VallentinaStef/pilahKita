@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:pilahkita/presentation/pages/gallery_page.dart';
-import 'package:pilahkita/presentation/pages/photo_preview_page.dart';
-import '../themes/app_colors.dart';
-import '../widgets/scan_corner.dart';
+import 'package:pilahkita/presentation/pages/report-making/gallery_page.dart';
+import 'package:pilahkita/presentation/pages/report-making/photo_preview_page.dart';
+import '../../themes/app_colors.dart';
+import '../../widgets/scan_corner.dart';
 
 class CameraPage extends StatefulWidget {
   const CameraPage({super.key});

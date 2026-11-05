@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import '../../domain/entities/report_ticket.dart';
-import '../themes/app_colors.dart';
-import '../widgets/primary_button.dart';
+import '../../../domain/entities/report_ticket.dart';
+import '../../themes/app_colors.dart';
+import '../../widgets/primary_button.dart';
 
 class ReportSuccessPage extends StatelessWidget {
   final ReportTicket ticket;

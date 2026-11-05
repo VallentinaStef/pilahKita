@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../../domain/entities/report_location.dart';
-import '../themes/app_colors.dart';
-import '../widgets/primary_button.dart';
+import '../../../domain/entities/report_location.dart';
+import '../../themes/app_colors.dart';
+import '../../widgets/primary_button.dart';
 
 class PickLocationPage extends StatelessWidget {
   const PickLocationPage({super.key});

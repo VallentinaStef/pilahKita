@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'auth/login_page.dart';
 import 'edit_profil_page.dart';
 import 'riwayat_aktivitas_page.dart';
 
@@ -42,6 +44,33 @@ class _ProfilePageState extends State<ProfilePage> {
         builder: (context) => const RiwayatAktivitasPage(),
       ),
     );
+  }
+
+  Future<void> konfirmasiLogout() async {
+    final konfirmasi = await Get.dialog<bool>(
+      AlertDialog(
+        title: const Text('Keluar dari akun?'),
+        content: const Text('Apa kamu yakin ingin keluar dari akun ini?'),
+        actions: [
+          TextButton(
+            onPressed: () => Get.back(result: false),
+            child: const Text('Batal'),
+          ),
+          TextButton(
+            onPressed: () => Get.back(result: true),
+            child: const Text('Keluar'),
+          ),
+        ],
+      ),
+    );
+
+    if (konfirmasi == true && mounted) {
+      logout();
+    }
+  }
+
+  void logout() {
+    Get.offAll(() => const LoginPage());
   }
 
   @override
@@ -123,6 +152,25 @@ class _ProfilePageState extends State<ProfilePage> {
                   foregroundColor: const Color(0xFF104B37),
                   side: const BorderSide(
                     color: Color(0xFF104B37),
+                  ),
+                ),
+              ),
+            ),
+
+            const SizedBox(height: 12),
+
+            SizedBox(
+              width: double.infinity,
+              height: 50,
+              child: OutlinedButton.icon(
+                onPressed: konfirmasiLogout,
+                icon: const Icon(Icons.logout_outlined),
+                label: const Text('Keluar'),
+                style: OutlinedButton.styleFrom(
+                  foregroundColor: const Color(0xFF104B37),
+                  side: const BorderSide(color: Color(0xFF104B37)),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12),
                   ),
                 ),
               ),
