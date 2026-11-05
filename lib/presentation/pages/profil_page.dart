@@ -1,8 +1,38 @@
 import 'package:flutter/material.dart';
 import 'edit_profil_page.dart';
 
-class ProfilePage extends StatelessWidget {
+class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
+
+  @override
+  State<ProfilePage> createState() => _ProfilePageState();
+}
+
+class _ProfilePageState extends State<ProfilePage> {
+  String nama = 'Nadhifah';
+  String email = 'warga@pilahkita.com';
+  String hp = '081234567890';
+
+  Future<void> bukaEditProfil() async {
+    final hasil = await Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => EditProfilPage(
+          nama: nama,
+          email: email,
+          hp: hp,
+        ),
+      ),
+    );
+
+    if (hasil != null) {
+      setState(() {
+        nama = hasil['nama'];
+        email = hasil['email'];
+        hp = hasil['hp'];
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +45,7 @@ class ProfilePage extends StatelessWidget {
         title: const Text('Profil Saya'),
       ),
 
-      body: Padding(
+      body: SingleChildScrollView(
         padding: const EdgeInsets.all(24),
         child: Column(
           children: [
@@ -31,44 +61,50 @@ class ProfilePage extends StatelessWidget {
 
             const SizedBox(height: 16),
 
-            const Text(
-              'Nadhifah',
-              style: TextStyle(
+            Text(
+              nama,
+              style: const TextStyle(
                 fontSize: 22,
                 fontWeight: FontWeight.bold,
               ),
             ),
 
-            const SizedBox(height: 8),
+            const SizedBox(height: 6),
 
-            const Text(
-              'warga@pilahkita.com',
-              style: TextStyle(
+            Text(
+              email,
+              style: const TextStyle(
                 color: Colors.black54,
               ),
             ),
 
-            const SizedBox(height: 30),
+            const SizedBox(height: 28),
 
-            const Text(
-              'Nomor HP: 081234567890',
-              style: TextStyle(fontSize: 15),
+            _itemProfil(
+              Icons.person_outline,
+              'Nama',
+              nama,
             ),
 
-            const SizedBox(height: 30),
+            _itemProfil(
+              Icons.email_outlined,
+              'Email',
+              email,
+            ),
+
+            _itemProfil(
+              Icons.phone_outlined,
+              'Nomor HP',
+              hp,
+            ),
+
+            const SizedBox(height: 24),
 
             SizedBox(
               width: double.infinity,
               height: 50,
               child: ElevatedButton.icon(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const EditProfilPage(),
-                    ),
-                  );
-                },
+                onPressed: bukaEditProfil,
                 icon: const Icon(Icons.edit_outlined),
                 label: const Text('Edit Profil'),
                 style: ElevatedButton.styleFrom(
@@ -79,6 +115,52 @@ class ProfilePage extends StatelessWidget {
             ),
           ],
         ),
+      ),
+    );
+  }
+
+  Widget _itemProfil(
+    IconData icon,
+    String label,
+    String value,
+  ) {
+    return Container(
+      margin: const EdgeInsets.only(bottom: 12),
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(12),
+      ),
+      child: Row(
+        children: [
+          Icon(
+            icon,
+            color: const Color(0xFF104B37),
+          ),
+          const SizedBox(width: 14),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  label,
+                  style: const TextStyle(
+                    fontSize: 12,
+                    color: Colors.black54,
+                  ),
+                ),
+                const SizedBox(height: 3),
+                Text(
+                  value,
+                  style: const TextStyle(
+                    fontSize: 15,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
       ),
     );
   }
