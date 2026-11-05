@@ -4,8 +4,19 @@ import '../widgets/bottom_nav_scaffold.dart';
 import '../pages/beranda_page.dart';
 import '../pages/notifikasi_page.dart';
 
+enum RolePengguna {
+  warga,
+  petugas,
+  pengelola,
+}
+
 class HomeShell extends StatefulWidget {
-  const HomeShell({super.key});
+  final RolePengguna role;
+
+  const HomeShell({
+    super.key,
+    required this.role,
+  });
 
   @override
   State<HomeShell> createState() => _HomeShellState();
@@ -19,13 +30,143 @@ class _HomeShellState extends State<HomeShell> {
     return BottomNavScaffold(
       currentIndex: _index,
       onTap: (i) => setState(() => _index = i),
-      child: IndexedStack(
+      child: _buildPage(),
+    );
+  }
+
+  Widget _buildPage() {
+    if (widget.role == RolePengguna.warga) {
+      return IndexedStack(
         index: _index,
         children: const [
           BerandaPage(),
           Center(child: Text('Riwayat')),
           NotifikasiPage(),
         ],
+      );
+    }
+
+    if (widget.role == RolePengguna.petugas) {
+      return IndexedStack(
+        index: _index,
+        children: const [
+          PetugasPage(),
+          Center(child: Text('Tugas')),
+          NotifikasiPage(),
+        ],
+      );
+    }
+
+    return IndexedStack(
+      index: _index,
+      children: const [
+        PengelolaPage(),
+        Center(child: Text('Aktivitas')),
+        NotifikasiPage(),
+      ],
+    );
+  }
+}
+
+class PetugasPage extends StatelessWidget {
+  const PetugasPage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: const Color(0xFFEAF4E4),
+      appBar: AppBar(
+        backgroundColor: const Color(0xFF104B37),
+        foregroundColor: Colors.white,
+        title: const Text('Beranda Petugas'),
+      ),
+      body: const Padding(
+        padding: EdgeInsets.all(24),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              'Halo, Petugas 👋',
+              style: TextStyle(
+                fontSize: 24,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            SizedBox(height: 8),
+            Text(
+              'Kelola laporan dan tugas pengangkutan sampah.',
+              style: TextStyle(color: Colors.black54),
+            ),
+            SizedBox(height: 24),
+            Card(
+              child: ListTile(
+                leading: Icon(Icons.assignment_outlined),
+                title: Text('Laporan masuk'),
+                subtitle: Text('Lihat laporan yang perlu ditangani'),
+              ),
+            ),
+            Card(
+              child: ListTile(
+                leading: Icon(Icons.local_shipping_outlined),
+                title: Text('Tugas hari ini'),
+                subtitle: Text('0 tugas selesai'),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class PengelolaPage extends StatelessWidget {
+  const PengelolaPage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: const Color(0xFFEAF4E4),
+      appBar: AppBar(
+        backgroundColor: const Color(0xFF104B37),
+        foregroundColor: Colors.white,
+        title: const Text('Dashboard Pengelola'),
+      ),
+      body: const Padding(
+        padding: EdgeInsets.all(24),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              'Halo, Pengelola 👋',
+              style: TextStyle(
+                fontSize: 24,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            SizedBox(height: 8),
+            Text(
+              'Kelola sistem dan petugas PilahKita.',
+              style: TextStyle(color: Colors.black54),
+            ),
+            SizedBox(height: 24),
+            Card(
+              child: ListTile(
+                leading: Icon(Icons.people_outline),
+                title: Text('Kelola petugas'),
+                subtitle: Text(
+                  'Tambah, ubah, atau nonaktifkan petugas',
+                ),
+              ),
+            ),
+            Card(
+              child: ListTile(
+                leading: Icon(Icons.history),
+                title: Text('Aktivitas'),
+                subtitle: Text('Lihat aktivitas sistem'),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:pilahkita/presentation/pages/report_page.dart';
 
+import 'package:pilahkita/presentation/pages/report_page.dart';
+import 'profil_page.dart';
 import '../themes/app_colors.dart';
 import '../controllers/laporan_controller.dart';
 import '../widgets/laporan_card.dart';
@@ -22,7 +23,7 @@ class BerandaPage extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                // headernya
+                // header beranda
                 Container(
                   width: double.infinity,
                   padding: const EdgeInsets.fromLTRB(24, 22, 24, 20),
@@ -36,17 +37,54 @@ class BerandaPage extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Text(
-                        'Selamat pagi',
-                        style: TextStyle(color: Colors.white70, fontSize: 13),
-                      ),
-                      const SizedBox(height: 3),
-                      const Text(
-                        'Halo, Nadhifah',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 25,
-                          fontWeight: FontWeight.w700,
+                      // tombol profil
+                      InkWell(
+                        onTap: () {
+                          Get.to(() => const ProfilePage());
+                        },
+                        borderRadius: BorderRadius.circular(40),
+                        child: Row(
+                          mainAxisAlignment:
+                              MainAxisAlignment.spaceBetween,
+                          children: [
+                            const Column(
+                              crossAxisAlignment:
+                                  CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  'Selamat pagi',
+                                  style: TextStyle(
+                                    color: Colors.white70,
+                                    fontSize: 13,
+                                  ),
+                                ),
+                                SizedBox(height: 3),
+                                Text(
+                                  'Halo, Nadhifah',
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 25,
+                                    fontWeight: FontWeight.w700,
+                                  ),
+                                ),
+                              ],
+                            ),
+
+                            Container(
+                              padding: const EdgeInsets.all(10),
+                              decoration: BoxDecoration(
+                                color: Colors.white.withValues(
+                                  alpha: 0.15,
+                                ),
+                                shape: BoxShape.circle,
+                              ),
+                              child: const Icon(
+                                Icons.person_outline,
+                                color: Colors.white,
+                                size: 28,
+                              ),
+                            ),
+                          ],
                         ),
                       ),
 
@@ -145,7 +183,9 @@ class BerandaPage extends StatelessWidget {
                       else
                         ...controller.laporanSaya.map(
                           (item) => Padding(
-                            padding: const EdgeInsets.only(bottom: 12),
+                            padding: const EdgeInsets.only(
+                              bottom: 12,
+                            ),
                             child: LaporanCard(
                               laporan: item,
                               onTap: () {
