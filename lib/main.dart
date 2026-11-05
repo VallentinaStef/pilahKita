@@ -9,11 +9,11 @@ import 'routes/app_router.dart';
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   DependencyInjection.init();
-  runApp(const MyApp());
+  runApp(const PilahKitaApp());
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class PilahKitaApp extends StatelessWidget {
+  const PilahKitaApp({super.key});
 
   @override
   Widget build(BuildContext context) {
