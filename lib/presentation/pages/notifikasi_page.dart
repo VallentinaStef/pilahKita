@@ -4,8 +4,7 @@ import 'package:get/get.dart';
 import '../themes/app_colors.dart';
 import '../../domain/entities/notifikasi.dart';
 import '../controllers/notifikasi_controller.dart';
-
-enum RolePengguna { warga, petugas }
+import '../shell/home_shell.dart';
 
 class NotifikasiPage extends StatefulWidget {
   final RolePengguna role;
