@@ -38,7 +38,6 @@ class PickLocationPage extends StatelessWidget {
                 alignment: Alignment.topLeft,
                 child: GestureDetector(
                   onTap: () {
-                    // TODO: ambil lokasi GPS
                   },
                   child: Container(
                     padding: const EdgeInsets.symmetric(
