@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../themes/app_theme.dart';
+import '../themes/app_colors.dart';
 import '../../domain/entities/notifikasi.dart';
 import '../controllers/notifikasi_controller.dart';
 
@@ -55,7 +55,7 @@ class _NotifikasiPageState extends State<NotifikasiPage> {
                 : 'Lihat sebagai petugas',
             icon: Icon(
               isiPetugas ? Icons.person : Icons.badge_outlined,
-              color: AppTheme.primary,
+              color: AppColors.primary,
             ),
             onPressed: _toggleRole,
           ),
@@ -68,15 +68,15 @@ class _NotifikasiPageState extends State<NotifikasiPage> {
                   padding: const EdgeInsets.symmetric(
                       horizontal: 10, vertical: 4),
                   decoration: BoxDecoration(
-                    color: AppTheme.surface,
+                    color: AppColors.surface,
                     borderRadius: BorderRadius.circular(20),
-                    border: Border.all(color: AppTheme.primary, width: 1.2),
+                    border: Border.all(color: AppColors.primary, width: 1.2),
                   ),
                   child: Text(
                     '$belum belum dibaca',
                     style: const TextStyle(
                       fontSize: 11,
-                      color: AppTheme.primary,
+                      color: AppColors.primary,
                       fontWeight: FontWeight.w600,
                     ),
                   ),
@@ -95,7 +95,7 @@ class _NotifikasiPageState extends State<NotifikasiPage> {
           return const Center(
             child: Text(
               'Belum ada notifikasi',
-              style: TextStyle(color: AppTheme.textSecondary),
+              style: TextStyle(color: AppColors.textSecondary),
             ),
           );
         }
@@ -110,7 +110,7 @@ class _NotifikasiPageState extends State<NotifikasiPage> {
                   style: const TextStyle(
                     fontSize: 14,
                     fontWeight: FontWeight.w700,
-                    color: AppTheme.textSecondary,
+                    color: AppColors.textSecondary,
                   ),
                 ),
               ),
@@ -140,11 +140,11 @@ class _NotifikasiTile extends StatelessWidget {
       };
 
   Color get _warna => switch (notifikasi.jenis) {
-        JenisNotifikasi.tugasBaru => AppTheme.info,
-        JenisNotifikasi.penugasan => AppTheme.warning,
-        JenisNotifikasi.selesai => AppTheme.success,
-        JenisNotifikasi.ditolak => AppTheme.danger,
-        JenisNotifikasi.status => AppTheme.primary,
+        JenisNotifikasi.tugasBaru => AppColors.info,
+        JenisNotifikasi.penugasan => AppColors.warning,
+        JenisNotifikasi.selesai => AppColors.success,
+        JenisNotifikasi.ditolak => AppColors.danger,
+        JenisNotifikasi.status => AppColors.primary,
       };
 
   @override
@@ -153,10 +153,10 @@ class _NotifikasiTile extends StatelessWidget {
       margin: const EdgeInsets.only(bottom: 10),
       padding: const EdgeInsets.all(14),
       decoration: BoxDecoration(
-        color: AppTheme.surface,
+        color: AppColors.surface,
         borderRadius: BorderRadius.circular(12),
         border: Border.all(
-          color: notifikasi.dibaca ? AppTheme.border : AppTheme.primary,
+          color: notifikasi.dibaca ? AppColors.border : AppColors.primary,
           width: notifikasi.dibaca ? 1 : 1.2,
         ),
       ),
@@ -193,7 +193,7 @@ class _NotifikasiTile extends StatelessWidget {
                       notifikasi.waktu,
                       style: const TextStyle(
                         fontSize: 12,
-                        color: AppTheme.textSecondary,
+                        color: AppColors.textSecondary,
                       ),
                     ),
                   ],
@@ -203,7 +203,7 @@ class _NotifikasiTile extends StatelessWidget {
                   notifikasi.isi,
                   style: const TextStyle(
                     fontSize: 13,
-                    color: AppTheme.textSecondary,
+                    color: AppColors.textSecondary,
                     height: 1.4,
                   ),
                 ),
@@ -216,7 +216,7 @@ class _NotifikasiTile extends StatelessWidget {
               height: 8,
               margin: const EdgeInsets.only(left: 8, top: 6),
               decoration: const BoxDecoration(
-                color: AppTheme.primary,
+                color: AppColors.primary,
                 shape: BoxShape.circle,
               ),
             ),
