@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:pilahkita/presentation/pages/camera_page.dart';
 import '../themes/app_colors.dart';
 import '../widgets/primary_button.dart';
 import '../../domain/entities/report_location.dart';
@@ -100,10 +101,9 @@ class _ReportPageState extends State<ReportPage> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      // camera placeholder
                       GestureDetector(
                         onTap: () {
-                          // TODO: buka halaman kamera
+                          Get.to(() => CameraPage());
                         },
                         child: Container(
                           width: double.infinity,
@@ -114,7 +114,9 @@ class _ReportPageState extends State<ReportPage> {
                               color:
                                   !hasPhoto && showValidationError
                                       ? AppColors.danger
-                                      : AppColors.primary.withValues(alpha: 0.24),
+                                      : AppColors.primary.withValues(
+                                        alpha: 0.24,
+                                      ),
                               width: !hasPhoto && showValidationError ? 2 : 1.2,
                             ),
                             borderRadius: BorderRadius.circular(14),
@@ -127,9 +129,10 @@ class _ReportPageState extends State<ReportPage> {
                                     ? Icons.check_circle_outline
                                     : Icons.camera_alt_outlined,
                                 size: 42,
-                                color: hasPhoto
-                                    ? AppColors.success
-                                    : AppColors.primary,
+                                color:
+                                    hasPhoto
+                                        ? AppColors.success
+                                        : AppColors.primary,
                               ),
                               const SizedBox(height: 8),
                               Text(
@@ -223,13 +226,16 @@ class _ReportPageState extends State<ReportPage> {
                             borderRadius: BorderRadius.circular(14),
                             border:
                                 !hasLocation && showValidationError
-                                    ? Border.all(color: AppColors.danger, width: 2)
+                                    ? Border.all(
+                                      color: AppColors.danger,
+                                      width: 2,
+                                    )
                                     : Border.all(
-                                        color: AppColors.primary.withValues(
-                                          alpha: 0.24,
-                                        ),
-                                        width: 1.2,
+                                      color: AppColors.primary.withValues(
+                                        alpha: 0.24,
                                       ),
+                                      width: 1.2,
+                                    ),
                           ),
                           child: ClipRRect(
                             borderRadius: BorderRadius.circular(16),
@@ -296,7 +302,10 @@ class _ValidationAlert extends StatelessWidget {
         children: [
           const Text(
             '!',
-            style: TextStyle(color: AppColors.danger, fontWeight: FontWeight.w800),
+            style: TextStyle(
+              color: AppColors.danger,
+              fontWeight: FontWeight.w800,
+            ),
           ),
           const SizedBox(width: 8),
           Text(
