@@ -143,6 +143,7 @@ class DummyData {
       grup: 'Hari ini',
       dibaca: false,
       jenis: JenisNotifikasi.status,
+      tiket: 'PK-0412',
     ),
     const Notifikasi(
       judul: 'PK-0409 sudah ditugaskan',
@@ -151,6 +152,7 @@ class DummyData {
       grup: 'Hari ini',
       dibaca: false,
       jenis: JenisNotifikasi.penugasan,
+      tiket: 'PK-0409',
     ),
     const Notifikasi(
       judul: 'PK-0398 selesai',
@@ -159,6 +161,7 @@ class DummyData {
       grup: 'Kemarin',
       dibaca: true,
       jenis: JenisNotifikasi.selesai,
+      tiket: 'PK-0398',
     ),
     const Notifikasi(
       judul: 'PK-0390 ditolak',
@@ -167,6 +170,7 @@ class DummyData {
       grup: 'Kemarin',
       dibaca: true,
       jenis: JenisNotifikasi.ditolak,
+      tiket: 'PK-0390',
     ),
   ];
 

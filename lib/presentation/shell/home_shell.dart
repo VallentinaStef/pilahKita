@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../widgets/bottom_nav_scaffold.dart';
 import '../pages/beranda_page.dart';
 import '../pages/notifikasi_page.dart';
+import '../pages/riwayat_page.dart';
 import '../pages/profil_page.dart';
 import '../pages/pengelola/kelola_petugas_page.dart';
 
@@ -39,7 +40,7 @@ class _HomeShellState extends State<HomeShell> {
         index: _index,
         children: const [
           BerandaPage(),
-          Center(child: Text('Riwayat')),
+          RiwayatPage(),
           NotifikasiPage(),
           ProfilePage(),
         ],
