@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import '../../themes/app_colors.dart';
 import '../../controllers/dashboard_controller.dart';
 import '../../../domain/entities/laporan.dart';
+import '../../../data/services/export_laporan_excel.dart';
 
 class DashboardPengelolaPage extends StatelessWidget {
   const DashboardPengelolaPage({super.key});
@@ -341,28 +342,56 @@ class DashboardPengelolaPage extends StatelessWidget {
                   padding: const EdgeInsets.fromLTRB(16, 12, 16, 24),
                   child: SizedBox(
                     width: double.infinity,
-                    height: 43,
-                    child: OutlinedButton(
-                      onPressed: () {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(
-                            content: Text('Fitur ekspor ada di Modul 5.7'),
-                          ),
-                        );
+                    height: 46,
+                    child: OutlinedButton.icon(
+                      onPressed: () async {
+                        final periode = switch (controller.filterAktif.value) {
+                          FilterDashboard.mingguIni => 'Minggu ini',
+                          FilterDashboard.bulanIni => 'Bulan ini',
+                          FilterDashboard.semua => 'Semua laporan',
+                          FilterDashboard.tanggal =>
+                            'Rentang ${controller.tanggalMulai.value?.day ?? '-'}'
+                                '/${controller.tanggalMulai.value?.month ?? '-'}'
+                                '/${controller.tanggalMulai.value?.year ?? '-'}'
+                                ' - '
+                                '${controller.tanggalAkhir.value?.day ?? '-'}'
+                                '/${controller.tanggalAkhir.value?.month ?? '-'}'
+                                '/${controller.tanggalAkhir.value?.year ?? '-'}',
+                        };
+
+                        try {
+                          await ExportLaporanExcel.export(
+                            laporan: controller.laporanTerfilter,
+                            periode: periode,
+                          );
+
+                          Get.snackbar(
+                            'Berhasil',
+                            'File Excel berhasil dibuat.',
+                            snackPosition: SnackPosition.BOTTOM,
+                          );
+                        } catch (e) {
+                          Get.snackbar(
+                            'Ekspor gagal',
+                            e.toString(),
+                            snackPosition: SnackPosition.BOTTOM,
+                          );
+                        }
                       },
+                      icon: const Icon(Icons.file_download_outlined),
+                      label: const Text(
+                        'Ekspor Excel (.xlsx)',
+                        style: TextStyle(
+                          fontSize: 12,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
                       style: OutlinedButton.styleFrom(
                         backgroundColor: AppColors.surface,
                         foregroundColor: AppColors.primary,
                         side: const BorderSide(color: AppColors.primary),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(14),
-                        ),
-                      ),
-                      child: const Text(
-                        'Ekspor PDF atau CSV',
-                        style: TextStyle(
-                          fontSize: 12,
-                          fontWeight: FontWeight.bold,
                         ),
                       ),
                     ),

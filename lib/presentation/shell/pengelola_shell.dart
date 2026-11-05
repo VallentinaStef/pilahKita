@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
-import '../pages/pengelola/dashboard_pengelola_page.dart';
 import '../pages/pengelola/laporan_masuk_page.dart';
-import '../pages/pengelola/kelola_petugas_page.dart';
-import '../pages/profil_page.dart';
 import '../pages/pengelola/monitoring_map_page.dart';
+import '../pages/pengelola/dashboard_pengelola_page.dart';
+import '../pages/pengelola/kelola_petugas_page.dart';
+import '../themes/app_colors.dart';
 
 class PengelolaShell extends StatefulWidget {
   const PengelolaShell({super.key});
@@ -14,13 +14,13 @@ class PengelolaShell extends StatefulWidget {
 }
 
 class _PengelolaShellState extends State<PengelolaShell> {
-  int index = 0;
+  int _index = 0;
 
   final List<Widget> _pages = [
     LaporanMasukPage(),
     const MonitoringMapPage(),
     const DashboardPengelolaPage(),
-    const Center(child: Text('Kelola Petugas')),
+    const KelolaPetugasPage(),
   ];
 
   final List<IconData> _icons = [
@@ -30,47 +30,69 @@ class _PengelolaShellState extends State<PengelolaShell> {
     Icons.people_outline,
   ];
 
-  final List<String> _labels = ['Laporan', 'Peta', 'Dashboard', 'Petugas'];
+  final List<String> _labels = [
+    'Laporan',
+    'Peta',
+    'Dashboard',
+    'Petugas',
+  ];
 
   @override
   Widget build(BuildContext context) {
-    final pages = [
-      const DashboardPengelolaPage(),
-      LaporanMasukPage(),
-      const KelolaPetugasPage(),
-      const ProfilePage(),
-    ];
-
     return Scaffold(
-      body: pages[index],
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: index,
-        onTap: (value) {
-          setState(() {
-            index = value;
-          });
-        },
-        type: BottomNavigationBarType.fixed,
-        selectedItemColor: const Color(0xFF104B37),
-        unselectedItemColor: Colors.grey,
-        items: const [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.dashboard_outlined),
-            label: 'Dashboard',
+      body: _pages[_index],
+      bottomNavigationBar: SafeArea(
+        minimum: const EdgeInsets.only(bottom: 12),
+        child: Container(
+          margin: const EdgeInsets.symmetric(horizontal: 12),
+          padding: const EdgeInsets.all(8),
+          decoration: BoxDecoration(
+            color: AppColors.primary,
+            borderRadius: BorderRadius.circular(25),
           ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.assignment_outlined),
-            label: 'Laporan',
+          child: Row(
+            children: [
+              for (int i = 0; i < _labels.length; i++)
+                Expanded(
+                  child: InkWell(
+                    onTap: () => setState(() => _index = i),
+                    borderRadius: BorderRadius.circular(12),
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(vertical: 8),
+                      decoration: BoxDecoration(
+                        color: _index == i
+                            ? AppColors.accent
+                            : Colors.transparent,
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Icon(
+                            _icons[i],
+                            color: _index == i
+                                ? AppColors.primary
+                                : Colors.white,
+                            size: 21,
+                          ),
+                          const SizedBox(height: 3),
+                          Text(
+                            _labels[i],
+                            style: TextStyle(
+                              fontSize: 10,
+                              color: _index == i
+                                  ? AppColors.primary
+                                  : Colors.white,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+            ],
           ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.people_outline),
-            label: 'Petugas',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.person_outline),
-            label: 'Profil',
-          ),
-        ],
+        ),
       ),
     );
   }
