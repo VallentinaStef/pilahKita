@@ -1,52 +1,40 @@
 import 'package:flutter/material.dart';
-
-import '../../theme/app_colors.dart';
+import '../../themes/app_colors.dart';
 
 class PrimaryActionButton extends StatelessWidget {
   final String text;
   final VoidCallback? onPressed;
   final IconData? icon;
-  final bool isLoading;
-
   const PrimaryActionButton({
     super.key,
     required this.text,
     required this.onPressed,
     this.icon,
-    this.isLoading = false,
   });
-
   @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      width: double.infinity,
-      child: ElevatedButton.icon(
-        onPressed: onPressed,
-        icon: isLoading
-            ? const SizedBox(
-                width: 17,
-                height: 17,
-                child: CircularProgressIndicator(
-                  strokeWidth: 2,
-                  color: Colors.white,
-                ),
-              )
-            : Icon(icon ?? Icons.arrow_forward),
-        label: Text(text),
-        style: ElevatedButton.styleFrom(
-          backgroundColor: AppColors.green,
-          foregroundColor: Colors.white,
-          disabledBackgroundColor: AppColors.textGrey,
-          padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 18),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(14),
-          ),
-          textStyle: const TextStyle(
-            fontWeight: FontWeight.bold,
-            fontSize: 14,
-          ),
-        ),
+  Widget build(BuildContext context) => SizedBox(
+    width: double.infinity,
+    height: 52,
+    child: ElevatedButton(
+      onPressed: onPressed,
+      style: ElevatedButton.styleFrom(
+        backgroundColor: AppColors.primary,
+        foregroundColor: Colors.white,
+        disabledBackgroundColor: const Color(0xFFBFD8B8),
+        disabledForegroundColor: const Color(0xFF66806C),
+        elevation: 0,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
       ),
-    );
-  }
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          if (icon != null) ...[Icon(icon, size: 18), const SizedBox(width: 8)],
+          Text(
+            text,
+            style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w800),
+          ),
+        ],
+      ),
+    ),
+  );
 }

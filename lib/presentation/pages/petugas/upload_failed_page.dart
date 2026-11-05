@@ -1,86 +1,126 @@
 import 'package:flutter/material.dart';
-
-import '../../theme/app_colors.dart';
-import '../../widgets/petugas/primary_action_button.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import '../../themes/app_colors.dart';
+import '../../widgets/petugas/petugas_page_frame.dart';
 
 class UploadFailedPage extends StatelessWidget {
-  final VoidCallback onRetry;
-  final VoidCallback onBackToTasks;
-
-  const UploadFailedPage({
-    super.key,
-    required this.onRetry,
-    required this.onBackToTasks,
-  });
-
+  const UploadFailedPage({super.key});
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: const Text('Unggah bukti')),
-      body: SafeArea(
+  Widget build(BuildContext context) => Scaffold(
+    backgroundColor: AppColors.background,
+    body: PetugasPageFrame(
+      child: SafeArea(
         child: Center(
           child: SingleChildScrollView(
-            padding: const EdgeInsets.all(24),
+            padding: const EdgeInsets.fromLTRB(24, 25, 24, 25),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const Icon(
-                  Icons.cloud_off_outlined,
-                  color: AppColors.red,
-                  size: 78,
+                SvgPicture.asset(
+                  'lib/assets/icons8-trash-400.svg',
+                  width: 100,
+                  height: 100,
                 ),
                 const SizedBox(height: 18),
                 const Text(
-                  'Foto bukti belum terunggah',
+                  'Foto bukti belum\nterunggah',
                   textAlign: TextAlign.center,
                   style: TextStyle(
-                    color: AppColors.textDark,
+                    color: AppColors.primary,
                     fontSize: 23,
-                    fontWeight: FontWeight.bold,
+                    height: 1.1,
+                    fontWeight: FontWeight.w900,
                   ),
                 ),
                 const SizedBox(height: 10),
                 const Text(
-                  'Tugas belum ditandai selesai. Foto tetap tersimpan di layar pratinjau sampai proses unggah berhasil.',
+                  'Tugas belum ditandai selesai. Foto tetap tersimpan di layar ini sampai terunggah.',
                   textAlign: TextAlign.center,
-                  style: TextStyle(color: AppColors.textGrey, height: 1.5),
+                  style: TextStyle(
+                    color: AppColors.textSecondary,
+                    fontSize: 12,
+                    height: 1.45,
+                  ),
                 ),
                 const SizedBox(height: 18),
                 Container(
-                  padding: const EdgeInsets.all(13),
+                  width: double.infinity,
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 12,
+                    vertical: 12,
+                  ),
                   decoration: BoxDecoration(
-                    color: AppColors.pink,
-                    borderRadius: BorderRadius.circular(14),
+                    color: const Color(0xFFFFE4DF),
+                    borderRadius: BorderRadius.circular(22),
                   ),
                   child: const Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Icon(Icons.error_outline, color: AppColors.red),
-                      SizedBox(width: 8),
-                      Expanded(
+                      Icon(
+                        Icons.priority_high,
+                        color: Color(0xFFB13C32),
+                        size: 17,
+                      ),
+                      SizedBox(width: 6),
+                      Flexible(
                         child: Text(
-                          'Simulasi: koneksi terputus saat mengunggah.',
-                          style: TextStyle(color: AppColors.red, fontSize: 12),
+                          'Koneksi terputus saat mengunggah.',
+                          style: TextStyle(
+                            color: Color(0xFF8D3B32),
+                            fontSize: 11,
+                          ),
                         ),
                       ),
                     ],
                   ),
                 ),
-                const SizedBox(height: 22),
-                PrimaryActionButton(
-                  text: 'Unggah lagi',
-                  icon: Icons.cloud_upload_outlined,
-                  onPressed: onRetry,
+                const SizedBox(height: 17),
+                SizedBox(
+                  width: double.infinity,
+                  height: 52,
+                  child: ElevatedButton(
+                    onPressed: () => Navigator.pop(context),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: AppColors.primary,
+                      foregroundColor: Colors.white,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                    ),
+                    child: const Text(
+                      'Unggah lagi',
+                      style: TextStyle(fontWeight: FontWeight.w800),
+                    ),
+                  ),
                 ),
-                const SizedBox(height: 10),
-                OutlinedButton(
-                  onPressed: onBackToTasks,
-                  child: const Text('Kembali ke tugas'),
+                const SizedBox(height: 9),
+                SizedBox(
+                  width: double.infinity,
+                  height: 50,
+                  child: OutlinedButton(
+                    onPressed:
+                        () => Navigator.popUntil(
+                          context,
+                          (route) => route.isFirst,
+                        ),
+                    style: OutlinedButton.styleFrom(
+                      foregroundColor: AppColors.primary,
+                      side: const BorderSide(color: AppColors.primary),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                    ),
+                    child: const Text(
+                      'Kembali ke tugas',
+                      style: TextStyle(fontWeight: FontWeight.w700),
+                    ),
+                  ),
                 ),
               ],
             ),
           ),
         ),
       ),
-    );
-  }
+    ),
+  );
 }
