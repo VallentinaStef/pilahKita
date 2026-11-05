@@ -46,11 +46,14 @@ class LaporanController extends GetxController {
   List<Laporan> get laporanTersaring {
     return switch (filterAktif.value) {
       FilterRiwayat.semua => daftarLaporan,
-      FilterRiwayat.aktif => daftarLaporan
-          .where((l) =>
-              l.status == StatusLaporan.menunggu ||
-              l.status == StatusLaporan.diproses)
-          .toList(),
+      FilterRiwayat.aktif =>
+        daftarLaporan
+            .where(
+              (l) =>
+                  l.status == StatusLaporan.menunggu ||
+                  l.status == StatusLaporan.diproses,
+            )
+            .toList(),
       FilterRiwayat.selesai =>
         daftarLaporan.where((l) => l.status == StatusLaporan.selesai).toList(),
       FilterRiwayat.ditolak =>

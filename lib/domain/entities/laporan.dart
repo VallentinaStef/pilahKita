@@ -22,6 +22,7 @@ class Laporan {
   final String alamat;
   final JenisSampah jenisSampah;
   final VolumeSampah volume;
+  final DateTime? tanggal;
   final String? petugas;
   final String? alasanPenolakan;
   final String? fotoWarga;
@@ -35,6 +36,7 @@ class Laporan {
     required this.alamat,
     required this.jenisSampah,
     required this.volume,
+    this.tanggal,
     this.petugas,
     this.alasanPenolakan,
     this.fotoWarga,
@@ -44,23 +46,23 @@ class Laporan {
   });
 
   String get jenisLabel => switch (jenisSampah) {
-        JenisSampah.organik => 'Organik',
-        JenisSampah.anorganik => 'Anorganik',
-        JenisSampah.campuran => 'Campuran',
-      };
+    JenisSampah.organik => 'Organik',
+    JenisSampah.anorganik => 'Anorganik',
+    JenisSampah.campuran => 'Campuran',
+  };
 
   String get volumeLabel => switch (volume) {
-        VolumeSampah.kecil => 'kecil',
-        VolumeSampah.sedang => 'sedang',
-        VolumeSampah.besar => 'besar',
-      };
+    VolumeSampah.kecil => 'kecil',
+    VolumeSampah.sedang => 'sedang',
+    VolumeSampah.besar => 'besar',
+  };
 
   String get statusLabel => switch (status) {
-        StatusLaporan.menunggu => 'Menunggu validasi',
-        StatusLaporan.diproses => 'Dalam proses',
-        StatusLaporan.selesai => 'Selesai',
-        StatusLaporan.ditolak => 'Ditolak',
-      };
+    StatusLaporan.menunggu => 'Menunggu validasi',
+    StatusLaporan.diproses => 'Dalam proses',
+    StatusLaporan.selesai => 'Selesai',
+    StatusLaporan.ditolak => 'Ditolak',
+  };
 
   String get ringkasan => '$jenisLabel, volume $volumeLabel';
 }
