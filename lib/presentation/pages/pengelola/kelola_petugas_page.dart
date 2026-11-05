@@ -26,9 +26,7 @@ class _KelolaPetugasPageState extends State<KelolaPetugasPage> {
   void tambahPetugas() async {
     final hasil = await Navigator.push(
       context,
-      MaterialPageRoute(
-        builder: (context) => const FormPetugasPage(),
-      ),
+      MaterialPageRoute(builder: (context) => const FormPetugasPage()),
     );
 
     if (hasil != null) {
@@ -37,9 +35,7 @@ class _KelolaPetugasPageState extends State<KelolaPetugasPage> {
       });
 
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Petugas berhasil ditambahkan'),
-        ),
+        const SnackBar(content: Text('Petugas berhasil ditambahkan')),
       );
     }
   }
@@ -48,9 +44,7 @@ class _KelolaPetugasPageState extends State<KelolaPetugasPage> {
     final hasil = await Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => FormPetugasPage(
-          data: petugas[index],
-        ),
+        builder: (context) => FormPetugasPage(data: petugas[index]),
       ),
     );
 
@@ -60,54 +54,52 @@ class _KelolaPetugasPageState extends State<KelolaPetugasPage> {
       });
 
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Data petugas berhasil diperbarui'),
-        ),
+        const SnackBar(content: Text('Data petugas berhasil diperbarui')),
       );
     }
   }
 
-void nonaktifkan(int index) {
-  showDialog(
-    context: context,
-    builder: (context) {
-      return AlertDialog(
-        title: const Text('Nonaktifkan Petugas?'),
-        content: Text(
-          'Apakah Anda yakin ingin menonaktifkan ${petugas[index]['nama']}?',
-        ),
-        actions: [
-          TextButton(
-            onPressed: () {
-              Navigator.pop(context);
-            },
-            child: const Text('Batal'),
+  void nonaktifkan(int index) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: const Text('Nonaktifkan Petugas?'),
+          content: Text(
+            'Apakah Anda yakin ingin menonaktifkan ${petugas[index]['nama']}?',
           ),
-          ElevatedButton(
-            onPressed: () {
-              setState(() {
-                petugas[index]['aktif'] = false;
-              });
-
-              Navigator.pop(context);
-
-              ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(
-                  content: Text('Petugas berhasil dinonaktifkan'),
-                ),
-              );
-            },
-            style: ElevatedButton.styleFrom(
-              backgroundColor: const Color(0xFF104B37),
-              foregroundColor: Colors.white,
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              child: const Text('Batal'),
             ),
-            child: const Text('Nonaktifkan'),
-          ),
-        ],
-      );
-    },
-  );
-}
+            ElevatedButton(
+              onPressed: () {
+                setState(() {
+                  petugas[index]['aktif'] = false;
+                });
+
+                Navigator.pop(context);
+
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(
+                    content: Text('Petugas berhasil dinonaktifkan'),
+                  ),
+                );
+              },
+              style: ElevatedButton.styleFrom(
+                backgroundColor: const Color(0xFF104B37),
+                foregroundColor: Colors.white,
+              ),
+              child: const Text('Nonaktifkan'),
+            ),
+          ],
+        );
+      },
+    );
+  }
 
   void aktifkan(int index) {
     setState(() {
@@ -115,9 +107,7 @@ void nonaktifkan(int index) {
     });
 
     ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(
-        content: Text('Petugas berhasil diaktifkan kembali'),
-      ),
+      const SnackBar(content: Text('Petugas berhasil diaktifkan kembali')),
     );
   }
 
@@ -148,10 +138,7 @@ void nonaktifkan(int index) {
                     children: [
                       const CircleAvatar(
                         backgroundColor: Color(0xFFB7F34A),
-                        child: Icon(
-                          Icons.person,
-                          color: Color(0xFF104B37),
-                        ),
+                        child: Icon(Icons.person, color: Color(0xFF104B37)),
                       ),
                       const SizedBox(width: 14),
                       Expanded(
@@ -182,9 +169,10 @@ void nonaktifkan(int index) {
                           vertical: 5,
                         ),
                         decoration: BoxDecoration(
-                          color: aktif
-                              ? const Color(0xFFEAF4E4)
-                              : Colors.grey.shade200,
+                          color:
+                              aktif
+                                  ? const Color(0xFFEAF4E4)
+                                  : Colors.grey.shade200,
                           borderRadius: BorderRadius.circular(20),
                         ),
                         child: Text(
@@ -192,9 +180,10 @@ void nonaktifkan(int index) {
                           style: TextStyle(
                             fontSize: 12,
                             fontWeight: FontWeight.bold,
-                            color: aktif
-                                ? const Color(0xFF104B37)
-                                : Colors.black54,
+                            color:
+                                aktif
+                                    ? const Color(0xFF104B37)
+                                    : Colors.black54,
                           ),
                         ),
                       ),
@@ -222,17 +211,16 @@ void nonaktifkan(int index) {
                       const SizedBox(width: 10),
                       Expanded(
                         child: ElevatedButton.icon(
-                          onPressed: aktif
-                              ? () => nonaktifkan(index)
-                              : () => aktifkan(index),
+                          onPressed:
+                              aktif
+                                  ? () => nonaktifkan(index)
+                                  : () => aktifkan(index),
                           icon: Icon(
                             aktif
                                 ? Icons.block_outlined
                                 : Icons.check_circle_outline,
                           ),
-                          label: Text(
-                            aktif ? 'Nonaktifkan' : 'Aktifkan',
-                          ),
+                          label: Text(aktif ? 'Nonaktifkan' : 'Aktifkan'),
                           style: ElevatedButton.styleFrom(
                             backgroundColor: const Color(0xFF104B37),
                             foregroundColor: Colors.white,
@@ -260,10 +248,7 @@ void nonaktifkan(int index) {
 class FormPetugasPage extends StatefulWidget {
   final Map<String, dynamic>? data;
 
-  const FormPetugasPage({
-    super.key,
-    this.data,
-  });
+  const FormPetugasPage({super.key, this.data});
 
   @override
   State<FormPetugasPage> createState() => _FormPetugasPageState();
@@ -278,17 +263,11 @@ class _FormPetugasPageState extends State<FormPetugasPage> {
   void initState() {
     super.initState();
 
-    namaController = TextEditingController(
-      text: widget.data?['nama'] ?? '',
-    );
+    namaController = TextEditingController(text: widget.data?['nama'] ?? '');
 
-    emailController = TextEditingController(
-      text: widget.data?['email'] ?? '',
-    );
+    emailController = TextEditingController(text: widget.data?['email'] ?? '');
 
-    hpController = TextEditingController(
-      text: widget.data?['hp'] ?? '',
-    );
+    hpController = TextEditingController(text: widget.data?['hp'] ?? '');
   }
 
   @override
@@ -303,23 +282,18 @@ class _FormPetugasPageState extends State<FormPetugasPage> {
     if (namaController.text.trim().isEmpty ||
         emailController.text.trim().isEmpty ||
         hpController.text.trim().isEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Semua data wajib diisi'),
-        ),
-      );
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(const SnackBar(content: Text('Semua data wajib diisi')));
       return;
     }
 
-    Navigator.pop(
-      context,
-      {
-        'nama': namaController.text.trim(),
-        'email': emailController.text.trim(),
-        'hp': hpController.text.trim(),
-        'aktif': widget.data?['aktif'] ?? true,
-      },
-    );
+    Navigator.pop(context, {
+      'nama': namaController.text.trim(),
+      'email': emailController.text.trim(),
+      'hp': hpController.text.trim(),
+      'aktif': widget.data?['aktif'] ?? true,
+    });
   }
 
   @override
@@ -331,9 +305,7 @@ class _FormPetugasPageState extends State<FormPetugasPage> {
       appBar: AppBar(
         backgroundColor: const Color(0xFF104B37),
         foregroundColor: Colors.white,
-        title: Text(
-          isEdit ? 'Edit Petugas' : 'Tambah Petugas',
-        ),
+        title: Text(isEdit ? 'Edit Petugas' : 'Tambah Petugas'),
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(24),
@@ -379,9 +351,7 @@ class _FormPetugasPageState extends State<FormPetugasPage> {
                 ),
                 child: Text(
                   isEdit ? 'Simpan Perubahan' : 'Tambah Petugas',
-                  style: const TextStyle(
-                    fontWeight: FontWeight.bold,
-                  ),
+                  style: const TextStyle(fontWeight: FontWeight.bold),
                 ),
               ),
             ),
