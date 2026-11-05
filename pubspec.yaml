@@ -30,17 +30,18 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-
+    
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.8
-  google_fonts: 8.2.1
-  flutter_svg: ^2.3.2
-
+  flutter_svg: ^2.0.17
+  google_fonts: ^6.2.1
+  get: ^4.7.2
+  
 dev_dependencies:
   flutter_test:
     sdk: flutter
-
+    
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
   # activated in the `analysis_options.yaml` file located at the root of your
@@ -59,9 +60,18 @@ flutter:
   # the material Icons class.
   uses-material-design: true
 
-  # To add assets to your application, add an assets section, like this:
   assets:
+    - lib/assets/trash.svg
+    - lib/assets/trash_top.svg
+    - lib/assets/trash_bin.svg
+    - lib/assets/logo.svg
+    - lib/assets/sampah-numpuk.jpg
+    - lib/assets/confetti.svg
+    - lib/assets/map-placeholder.png
     - lib/assets/icons8-trash-400.svg
+
+  # To add assets to your application, add an assets section, like this:
+    
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images
