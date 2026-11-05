@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:pilahkita/presentation/pages/report_page.dart';
 
-import '../themes/app_theme.dart';
+import '../themes/app_colors.dart';
 import '../controllers/laporan_controller.dart';
 import '../widgets/laporan_card.dart';
 
@@ -13,7 +14,7 @@ class BerandaPage extends StatelessWidget {
     final controller = Get.find<LaporanController>();
 
     return Scaffold(
-      backgroundColor: AppTheme.background,
+      backgroundColor: AppColors.background,
       body: SafeArea(
         child: Obx(
           () => SingleChildScrollView(
@@ -26,7 +27,7 @@ class BerandaPage extends StatelessWidget {
                   width: double.infinity,
                   padding: const EdgeInsets.fromLTRB(24, 22, 24, 20),
                   decoration: const BoxDecoration(
-                    color: AppTheme.primary,
+                    color: AppColors.primary,
                     borderRadius: BorderRadius.only(
                       bottomLeft: Radius.circular(28),
                       bottomRight: Radius.circular(28),
@@ -37,10 +38,7 @@ class BerandaPage extends StatelessWidget {
                     children: [
                       const Text(
                         'Selamat pagi',
-                        style: TextStyle(
-                          color: Colors.white70,
-                          fontSize: 13,
-                        ),
+                        style: TextStyle(color: Colors.white70, fontSize: 13),
                       ),
                       const SizedBox(height: 3),
                       const Text(
@@ -54,7 +52,7 @@ class BerandaPage extends StatelessWidget {
 
                       const SizedBox(height: 16),
 
-                      // jumlah laporan 
+                      // jumlah laporan
                       Container(
                         width: double.infinity,
                         padding: const EdgeInsets.symmetric(
@@ -70,7 +68,7 @@ class BerandaPage extends StatelessWidget {
                             Text(
                               '1',
                               style: TextStyle(
-                                color: AppTheme.accent,
+                                color: AppColors.accent,
                                 fontSize: 20,
                                 fontWeight: FontWeight.w700,
                               ),
@@ -96,10 +94,12 @@ class BerandaPage extends StatelessWidget {
                         width: double.infinity,
                         height: 52,
                         child: ElevatedButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            Get.to(ReportPage());
+                          },
                           style: ElevatedButton.styleFrom(
-                            backgroundColor: AppTheme.accent,
-                            foregroundColor: AppTheme.primary,
+                            backgroundColor: AppColors.accent,
+                            foregroundColor: AppColors.primary,
                             elevation: 0,
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(10),
@@ -127,7 +127,7 @@ class BerandaPage extends StatelessWidget {
                       const Text(
                         'Laporan saya',
                         style: TextStyle(
-                          color: AppTheme.textPrimary,
+                          color: AppColors.textPrimary,
                           fontSize: 15,
                           fontWeight: FontWeight.w700,
                         ),

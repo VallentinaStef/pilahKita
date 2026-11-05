@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../themes/app_theme.dart';
+import '../themes/app_colors.dart';
 
 class BottomNavScaffold extends StatelessWidget {
   final int currentIndex;
@@ -31,7 +31,7 @@ class BottomNavScaffold extends StatelessWidget {
           width: double.infinity,
           padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
           decoration: BoxDecoration(
-            color: AppTheme.primary,
+            color: AppColors.primary,
             borderRadius: BorderRadius.circular(18),
           ),
           child: Row(
@@ -75,7 +75,7 @@ class _NavItem extends StatelessWidget {
         duration: const Duration(milliseconds: 180),
         padding: const EdgeInsets.symmetric(vertical: 8),
         decoration: BoxDecoration(
-          color: active ? AppTheme.accent : Colors.transparent,
+          color: active ? AppColors.accent : Colors.transparent,
           borderRadius: BorderRadius.circular(12),
         ),
         child: Column(
@@ -84,7 +84,7 @@ class _NavItem extends StatelessWidget {
             Icon(
               icon,
               size: 22,
-              color: active ? AppTheme.primary : Colors.white,
+              color: active ? AppColors.primary : Colors.white,
             ),
             const SizedBox(height: 2),
             Text(
@@ -92,7 +92,7 @@ class _NavItem extends StatelessWidget {
               style: TextStyle(
                 fontSize: 10,
                 fontWeight: active ? FontWeight.w700 : FontWeight.w500,
-                color: active ? AppTheme.primary : Colors.white,
+                color: active ? AppColors.primary : Colors.white,
               ),
             ),
           ],

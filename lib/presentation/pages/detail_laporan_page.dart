@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../themes/app_theme.dart';
+import '../themes/app_colors.dart';
 import '../../domain/entities/laporan.dart';
 import '../controllers/laporan_controller.dart';
 import '../widgets/status_chip.dart';
@@ -28,7 +28,7 @@ class _DetailLaporanPageState extends State<DetailLaporanPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppTheme.background,
+      backgroundColor: AppColors.background,
       body: Obx(() {
         final laporan = _controller.detailLaporan.value;
         if (_controller.isLoading.value || laporan == null) {
@@ -60,7 +60,7 @@ class _Header extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: AppTheme.primary,
+      color: AppColors.primary,
       child: SafeArea(
         bottom: false,
         child: Padding(
@@ -125,14 +125,14 @@ class _LokasiCard extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: AppTheme.surface,
+        color: AppColors.surface,
         borderRadius: BorderRadius.circular(14),
       ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           const Icon(Icons.delete_outline,
-              size: 20, color: AppTheme.textPrimary),
+              size: 20, color: AppColors.textPrimary),
           const SizedBox(width: 10),
           Expanded(
             child: Column(
@@ -150,7 +150,7 @@ class _LokasiCard extends StatelessWidget {
                   laporan.ringkasan,
                   style: const TextStyle(
                     fontSize: 13,
-                    color: AppTheme.textSecondary,
+                    color: AppColors.textSecondary,
                   ),
                 ),
               ],
@@ -195,8 +195,8 @@ class _Timeline extends StatelessWidget {
                         child: Container(
                           width: 2,
                           color: steps[i].tercapai && steps[i + 1].tercapai
-                              ? AppTheme.primary
-                              : AppTheme.border,
+                              ? AppColors.primary
+                              : AppColors.border,
                         ),
                       ),
                   ],
@@ -215,8 +215,8 @@ class _Timeline extends StatelessWidget {
                             fontSize: 14,
                             fontWeight: FontWeight.w600,
                             color: steps[i].tercapai
-                                ? AppTheme.textPrimary
-                                : AppTheme.textSecondary,
+                                ? AppColors.textPrimary
+                                : AppColors.textSecondary,
                           ),
                         ),
                         const SizedBox(height: 2),
@@ -224,7 +224,7 @@ class _Timeline extends StatelessWidget {
                           steps[i].waktu,
                           style: const TextStyle(
                             fontSize: 12,
-                            color: AppTheme.textSecondary,
+                            color: AppColors.textSecondary,
                           ),
                         ),
                       ],
@@ -249,8 +249,8 @@ class _Dot extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final color = switch (state) {
-      _DotState.selesai => AppTheme.primary,
-      _DotState.aktif => AppTheme.processing,
+      _DotState.selesai => AppColors.primary,
+      _DotState.aktif => AppColors.processing,
       _DotState.pending => Colors.transparent,
     };
     return Container(
@@ -260,7 +260,7 @@ class _Dot extends StatelessWidget {
         shape: BoxShape.circle,
         color: color,
         border: state == _DotState.pending
-            ? Border.all(color: AppTheme.border, width: 2)
+            ? Border.all(color: AppColors.border, width: 2)
             : null,
       ),
       child: state == _DotState.selesai
@@ -291,7 +291,7 @@ class _FotoPlaceholder extends StatelessWidget {
           style: const TextStyle(
             fontSize: 14,
             fontWeight: FontWeight.w600,
-            color: AppTheme.textPrimary,
+            color: AppColors.textPrimary,
           ),
         ),
       ),
@@ -313,7 +313,7 @@ class _DetailBerjalan extends StatelessWidget {
           Container(
             padding: const EdgeInsets.all(16),
             decoration: BoxDecoration(
-              color: AppTheme.surface,
+              color: AppColors.surface,
               borderRadius: BorderRadius.circular(14),
             ),
             child: Text(
@@ -351,7 +351,7 @@ class _DetailDitolak extends StatelessWidget {
               Container(
                 padding: const EdgeInsets.all(16),
                 decoration: BoxDecoration(
-                  color: AppTheme.rejectBackground,
+                  color: AppColors.rejectBackground,
                   borderRadius: BorderRadius.circular(12),
                 ),
                 child: Column(
@@ -361,7 +361,7 @@ class _DetailDitolak extends StatelessWidget {
                       'Alasan penolakan',
                       style: TextStyle(
                         fontWeight: FontWeight.w700,
-                        color: AppTheme.danger,
+                        color: AppColors.danger,
                         fontSize: 14,
                       ),
                     ),
@@ -385,7 +385,7 @@ class _DetailDitolak extends StatelessWidget {
                   const Icon(
                     Icons.delete_outline,
                     size: 18,
-                    color: AppTheme.textPrimary,
+                    color: AppColors.textPrimary,
                   ),
                   const SizedBox(width: 8),
                   Expanded(
@@ -433,14 +433,14 @@ class _DetailSelesai extends StatelessWidget {
         Container(
           padding: const EdgeInsets.all(16),
           decoration: BoxDecoration(
-            color: AppTheme.surface,
+            color: AppColors.surface,
             borderRadius: BorderRadius.circular(14),
           ),
           child: Row(
             children: [
               const Icon(
                 Icons.check_circle_outline,
-                color: AppTheme.success,
+                color: AppColors.success,
                 size: 22,
               ),
               const SizedBox(width: 10),
@@ -484,7 +484,7 @@ class _DetailSelesai extends StatelessWidget {
               style: TextStyle(
                 fontSize: 14,
                 fontWeight: FontWeight.w600,
-                color: AppTheme.textPrimary,
+                color: AppColors.textPrimary,
               ),
             ),
           ),
@@ -507,7 +507,7 @@ class _DetailMenunggu extends StatelessWidget {
         Container(
           padding: const EdgeInsets.all(20),
           decoration: BoxDecoration(
-            color: AppTheme.surface,
+            color: AppColors.surface,
             borderRadius: BorderRadius.circular(14),
           ),
           child: const Column(
@@ -515,7 +515,7 @@ class _DetailMenunggu extends StatelessWidget {
               Icon(
                 Icons.hourglass_top_outlined,
                 size: 40,
-                color: AppTheme.warning,
+                color: AppColors.warning,
               ),
               SizedBox(height: 12),
               Text(
@@ -531,7 +531,7 @@ class _DetailMenunggu extends StatelessWidget {
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: 13,
-                  color: AppTheme.textSecondary,
+                  color: AppColors.textSecondary,
                   height: 1.5,
                 ),
               ),

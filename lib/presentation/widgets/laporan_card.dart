@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../themes/app_theme.dart';
+import '../themes/app_colors.dart';
 import '../../domain/entities/laporan.dart';
 import 'status_chip.dart';
 
@@ -13,7 +13,7 @@ class LaporanCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Material(
-      color: AppTheme.surface,
+      color: AppColors.surface,
       borderRadius: BorderRadius.circular(14),
       child: InkWell(
         onTap: onTap,
@@ -34,7 +34,7 @@ class LaporanCard extends StatelessWidget {
                           'Tiket',
                           style: TextStyle(
                             fontSize: 11,
-                            color: AppTheme.textSecondary,
+                            color: AppColors.textSecondary,
                           ),
                         ),
                         const SizedBox(height: 2),
@@ -60,7 +60,7 @@ class LaporanCard extends StatelessWidget {
                   const Icon(
                     Icons.delete_outline,
                     size: 18,
-                    color: AppTheme.textPrimary,
+                    color: AppColors.textPrimary,
                   ),
                   const SizedBox(width: 8),
                   Expanded(
@@ -79,7 +79,7 @@ class LaporanCard extends StatelessWidget {
                           laporan.ringkasan,
                           style: const TextStyle(
                             fontSize: 12,
-                            color: AppTheme.textSecondary,
+                            color: AppColors.textSecondary,
                           ),
                         ),
                       ],
