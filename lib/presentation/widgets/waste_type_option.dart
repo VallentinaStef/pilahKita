@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-import '../theme/app_colors.dart';
+import '../themes/app_colors.dart';
 
 class WasteTypeOption extends StatelessWidget {
   final String label;
@@ -28,25 +28,16 @@ class WasteTypeOption extends StatelessWidget {
         height: 88,
         decoration: BoxDecoration(
           shape: BoxShape.circle,
-          color: isSelected ? AppColors.lime : Colors.white,
+          color: isSelected ? AppColors.accent : AppColors.surface,
           border: Border.all(
             color:
                 isSelected
-                    ? AppColors.darkGreen
+                    ? AppColors.primary
                     : hasError
-                    ? AppColors.red
-                    : AppColors.border.withValues(alpha: 0.7),
-            width: 1,
+                    ? AppColors.danger
+                    : iconColor.withValues(alpha: 0.42),
+            width: isSelected ? 1.5 : 1,
           ),
-          boxShadow: [
-            BoxShadow(
-              color: AppColors.darkGreen.withValues(
-                alpha: isSelected ? 0.12 : 0.06,
-              ),
-              blurRadius: 8,
-              offset: const Offset(0, 3),
-            ),
-          ],
         ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -70,7 +61,7 @@ class WasteTypeOption extends StatelessWidget {
             Text(
               label,
               style: TextStyle(
-                color: AppColors.darkGreen,
+                color: AppColors.primary,
                 fontSize: 12,
                 fontWeight: isSelected ? FontWeight.w700 : FontWeight.w600,
               ),
