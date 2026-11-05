@@ -45,6 +45,14 @@ class LaporanCard extends StatelessWidget {
                             fontWeight: FontWeight.w700,
                           ),
                         ),
+                        const SizedBox(height: 2),
+                        Text(
+                          laporan.tanggalLabel,
+                          style: const TextStyle(
+                            fontSize: 12,
+                            color: AppColors.textSecondary,
+                          ),
+                        ),
                       ],
                     ),
                   ),
@@ -111,9 +119,10 @@ class _DashedDivider extends StatelessWidget {
 class _DashedPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
-    final paint = Paint()
-      ..color = const Color(0xFFD1D5D2)
-      ..strokeWidth = 1;
+    final paint =
+        Paint()
+          ..color = const Color(0xFFD1D5D2)
+          ..strokeWidth = 1;
 
     const dash = 6.0;
     const gap = 5.0;

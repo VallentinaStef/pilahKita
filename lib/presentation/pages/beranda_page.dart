@@ -5,6 +5,7 @@ import 'package:pilahkita/presentation/pages/report_page.dart';
 import '../themes/app_colors.dart';
 import '../controllers/laporan_controller.dart';
 import '../widgets/laporan_card.dart';
+import 'detail_laporan_page.dart';
 
 class BerandaPage extends StatelessWidget {
   const BerandaPage({super.key});
@@ -149,8 +150,8 @@ class BerandaPage extends StatelessWidget {
                             child: LaporanCard(
                               laporan: item,
                               onTap: () {
-                                Get.toNamed(
-                                  '/detail-laporan?tiket=${item.tiket}',
+                                Get.to(
+                                  () => DetailLaporanPage(tiket: item.tiket),
                                 );
                               },
                             ),

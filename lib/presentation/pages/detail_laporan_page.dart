@@ -31,7 +31,7 @@ class _DetailLaporanPageState extends State<DetailLaporanPage> {
       backgroundColor: AppColors.background,
       body: Obx(() {
         final laporan = _controller.detailLaporan.value;
-        if (_controller.isLoading.value || laporan == null) {
+        if (_controller.isLoadingDetail.value || laporan == null) {
           return const Center(child: CircularProgressIndicator());
         }
         return Column(
@@ -131,8 +131,11 @@ class _LokasiCard extends StatelessWidget {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Icon(Icons.delete_outline,
-              size: 20, color: AppColors.textPrimary),
+          const Icon(
+            Icons.delete_outline,
+            size: 20,
+            color: AppColors.textPrimary,
+          ),
           const SizedBox(width: 10),
           Expanded(
             child: Column(
@@ -184,9 +187,10 @@ class _Timeline extends StatelessWidget {
                 Column(
                   children: [
                     _Dot(
-                      state: !steps[i].tercapai
-                          ? _DotState.pending
-                          : i == aktifIndex
+                      state:
+                          !steps[i].tercapai
+                              ? _DotState.pending
+                              : i == aktifIndex
                               ? _DotState.aktif
                               : _DotState.selesai,
                     ),
@@ -194,9 +198,10 @@ class _Timeline extends StatelessWidget {
                       Expanded(
                         child: Container(
                           width: 2,
-                          color: steps[i].tercapai && steps[i + 1].tercapai
-                              ? AppColors.primary
-                              : AppColors.border,
+                          color:
+                              steps[i].tercapai && steps[i + 1].tercapai
+                                  ? AppColors.primary
+                                  : AppColors.border,
                         ),
                       ),
                   ],
@@ -205,7 +210,8 @@ class _Timeline extends StatelessWidget {
                 Expanded(
                   child: Padding(
                     padding: EdgeInsets.only(
-                        bottom: i == steps.length - 1 ? 0 : 22),
+                      bottom: i == steps.length - 1 ? 0 : 22,
+                    ),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -214,9 +220,10 @@ class _Timeline extends StatelessWidget {
                           style: TextStyle(
                             fontSize: 14,
                             fontWeight: FontWeight.w600,
-                            color: steps[i].tercapai
-                                ? AppColors.textPrimary
-                                : AppColors.textSecondary,
+                            color:
+                                steps[i].tercapai
+                                    ? AppColors.textPrimary
+                                    : AppColors.textSecondary,
                           ),
                         ),
                         const SizedBox(height: 2),
@@ -259,17 +266,18 @@ class _Dot extends StatelessWidget {
       decoration: BoxDecoration(
         shape: BoxShape.circle,
         color: color,
-        border: state == _DotState.pending
-            ? Border.all(color: AppColors.border, width: 2)
-            : null,
+        border:
+            state == _DotState.pending
+                ? Border.all(color: AppColors.border, width: 2)
+                : null,
       ),
-      child: state == _DotState.selesai
-          ? const Icon(Icons.check, size: 14, color: Colors.white)
-          : null,
+      child:
+          state == _DotState.selesai
+              ? const Icon(Icons.check, size: 14, color: Colors.white)
+              : null,
     );
   }
 }
-
 
 class _FotoPlaceholder extends StatelessWidget {
   final String label;
@@ -318,10 +326,7 @@ class _DetailBerjalan extends StatelessWidget {
             ),
             child: Text(
               '${laporan.petugas} sedang membersihkan lokasimu.',
-              style: const TextStyle(
-                fontSize: 14,
-                fontWeight: FontWeight.w600,
-              ),
+              style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
             ),
           ),
         const SizedBox(height: 24),
@@ -368,10 +373,7 @@ class _DetailDitolak extends StatelessWidget {
                     const SizedBox(height: 8),
                     Text(
                       laporan.alasanPenolakan ?? '-',
-                      style: const TextStyle(
-                        fontSize: 13,
-                        height: 1.5,
-                      ),
+                      style: const TextStyle(fontSize: 13, height: 1.5),
                     ),
                   ],
                 ),
@@ -459,13 +461,9 @@ class _DetailSelesai extends StatelessWidget {
         const SizedBox(height: 16),
         const Row(
           children: [
-            Expanded(
-              child: _FotoPlaceholder(label: 'Sebelum'),
-            ),
+            Expanded(child: _FotoPlaceholder(label: 'Sebelum')),
             SizedBox(width: 12),
-            Expanded(
-              child: _FotoPlaceholder(label: 'Sesudah'),
-            ),
+            Expanded(child: _FotoPlaceholder(label: 'Sesudah')),
           ],
         ),
         const SizedBox(height: 24),
@@ -520,10 +518,7 @@ class _DetailMenunggu extends StatelessWidget {
               SizedBox(height: 12),
               Text(
                 'Menunggu validasi',
-                style: TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.w700,
-                ),
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700),
               ),
               SizedBox(height: 6),
               Text(
