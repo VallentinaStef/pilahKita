@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
-import 'presentation/pages/login_page.dart';
-import 'presentation/theme/app_theme.dart';
+import 'presentation/themes/app_theme.dart';
+import 'di/dependency_injection.dart';
+import 'presentation/pages/auth/login_page.dart';
+import 'routes/app_router.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+  DependencyInjection.init();
   runApp(const PilahKitaApp());
 }
 
@@ -12,10 +17,11 @@ class PilahKitaApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'PilahKita',
+    return GetMaterialApp(
       debugShowCheckedModeBanner: false,
-      theme: appTheme,
+      title: 'PilahKita',
+      theme: AppTheme.light,
+      getPages: AppRouter.pages,
       home: const LoginPage(),
     );
   }
