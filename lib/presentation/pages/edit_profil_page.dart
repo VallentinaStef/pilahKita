@@ -1,18 +1,34 @@
 import 'package:flutter/material.dart';
 
 class EditProfilPage extends StatefulWidget {
-  const EditProfilPage({super.key});
+  final String nama;
+  final String email;
+  final String hp;
+
+  const EditProfilPage({
+    super.key,
+    required this.nama,
+    required this.email,
+    required this.hp,
+  });
 
   @override
   State<EditProfilPage> createState() => _EditProfilPageState();
 }
 
 class _EditProfilPageState extends State<EditProfilPage> {
-  final namaController = TextEditingController(text: 'Nadhifah');
-  final emailController =
-      TextEditingController(text: 'warga@pilahkita.com');
-  final hpController =
-      TextEditingController(text: '081234567890');
+  late TextEditingController namaController;
+  late TextEditingController emailController;
+  late TextEditingController hpController;
+
+  @override
+  void initState() {
+    super.initState();
+
+    namaController = TextEditingController(text: widget.nama);
+    emailController = TextEditingController(text: widget.email);
+    hpController = TextEditingController(text: widget.hp);
+  }
 
   @override
   void dispose() {
@@ -23,9 +39,9 @@ class _EditProfilPageState extends State<EditProfilPage> {
   }
 
   void simpan() {
-    if (namaController.text.isEmpty ||
-        emailController.text.isEmpty ||
-        hpController.text.isEmpty) {
+    if (namaController.text.trim().isEmpty ||
+        emailController.text.trim().isEmpty ||
+        hpController.text.trim().isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
           content: Text('Semua data wajib diisi'),
@@ -34,13 +50,14 @@ class _EditProfilPageState extends State<EditProfilPage> {
       return;
     }
 
-    ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(
-        content: Text('Profil berhasil diperbarui'),
-      ),
+    Navigator.pop(
+      context,
+      {
+        'nama': namaController.text.trim(),
+        'email': emailController.text.trim(),
+        'hp': hpController.text.trim(),
+      },
     );
-
-    Navigator.pop(context);
   }
 
   @override
@@ -48,7 +65,6 @@ class _EditProfilPageState extends State<EditProfilPage> {
     return Scaffold(
       backgroundColor: const Color(0xFFEAF4E4),
 
-      // appbar edit profil
       appBar: AppBar(
         backgroundColor: const Color(0xFF104B37),
         foregroundColor: Colors.white,
@@ -73,7 +89,6 @@ class _EditProfilPageState extends State<EditProfilPage> {
                       color: Color(0xFF104B37),
                     ),
                   ),
-
                   Positioned(
                     right: 0,
                     bottom: 0,
@@ -152,7 +167,7 @@ class _EditProfilPageState extends State<EditProfilPage> {
 
             const SizedBox(height: 12),
 
-            // batal edit
+            // batal
             TextButton(
               onPressed: () {
                 Navigator.pop(context);
