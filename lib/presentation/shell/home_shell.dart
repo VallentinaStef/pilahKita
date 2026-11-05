@@ -4,20 +4,14 @@ import '../widgets/bottom_nav_scaffold.dart';
 import '../pages/beranda_page.dart';
 import '../pages/notifikasi_page.dart';
 import '../pages/profil_page.dart';
+import '../pages/pengelola/kelola_petugas_page.dart';
 
-enum RolePengguna {
-  warga,
-  petugas,
-  pengelola,
-}
+enum RolePengguna { warga, petugas, pengelola }
 
 class HomeShell extends StatefulWidget {
   final RolePengguna role;
 
-  const HomeShell({
-    super.key,
-    required this.role,
-  });
+  const HomeShell({super.key, required this.role});
 
   @override
   State<HomeShell> createState() => _HomeShellState();
@@ -95,10 +89,7 @@ class PetugasPage extends StatelessWidget {
           children: [
             Text(
               'Halo, Petugas 👋',
-              style: TextStyle(
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
-              ),
+              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
             ),
             SizedBox(height: 8),
             Text(
@@ -139,34 +130,38 @@ class PengelolaPage extends StatelessWidget {
         foregroundColor: Colors.white,
         title: const Text('Dashboard Pengelola'),
       ),
-      body: const Padding(
-        padding: EdgeInsets.all(24),
+      body: Padding(
+        padding: const EdgeInsets.all(24),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
+            const Text(
               'Halo, Pengelola 👋',
-              style: TextStyle(
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
-              ),
+              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
             ),
-            SizedBox(height: 8),
-            Text(
+            const SizedBox(height: 8),
+            const Text(
               'Kelola sistem dan petugas PilahKita.',
               style: TextStyle(color: Colors.black54),
             ),
-            SizedBox(height: 24),
+            const SizedBox(height: 24),
             Card(
               child: ListTile(
-                leading: Icon(Icons.people_outline),
-                title: Text('Kelola petugas'),
-                subtitle: Text(
-                  'Tambah, ubah, atau nonaktifkan petugas',
-                ),
+                leading: const Icon(Icons.people_outline),
+                title: const Text('Kelola petugas'),
+                subtitle: const Text('Tambah, ubah, atau nonaktifkan petugas'),
+                trailing: const Icon(Icons.chevron_right),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const KelolaPetugasPage(),
+                    ),
+                  );
+                },
               ),
             ),
-            Card(
+            const Card(
               child: ListTile(
                 leading: Icon(Icons.history),
                 title: Text('Aktivitas'),
