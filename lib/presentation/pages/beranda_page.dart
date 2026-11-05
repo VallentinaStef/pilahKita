@@ -40,16 +40,19 @@ class BerandaPage extends StatelessWidget {
                       // tombol profil
                       InkWell(
                         onTap: () {
-                          Get.to(() => const ProfilePage());
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const ProfilePage(),
+                            ),
+                          );
                         },
                         borderRadius: BorderRadius.circular(40),
                         child: Row(
-                          mainAxisAlignment:
-                              MainAxisAlignment.spaceBetween,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             const Column(
-                              crossAxisAlignment:
-                                  CrossAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
                                   'Selamat pagi',
@@ -73,9 +76,7 @@ class BerandaPage extends StatelessWidget {
                             Container(
                               padding: const EdgeInsets.all(10),
                               decoration: BoxDecoration(
-                                color: Colors.white.withValues(
-                                  alpha: 0.15,
-                                ),
+                                color: Colors.white.withValues(alpha: 0.15),
                                 shape: BoxShape.circle,
                               ),
                               child: const Icon(
@@ -183,9 +184,7 @@ class BerandaPage extends StatelessWidget {
                       else
                         ...controller.laporanSaya.map(
                           (item) => Padding(
-                            padding: const EdgeInsets.only(
-                              bottom: 12,
-                            ),
+                            padding: const EdgeInsets.only(bottom: 12),
                             child: LaporanCard(
                               laporan: item,
                               onTap: () {
