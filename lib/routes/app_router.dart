@@ -1,6 +1,7 @@
 import 'package:get/get.dart';
 
 import '../presentation/shell/home_shell.dart';
+import '../presentation/pages/detail_laporan_page.dart';
 import '../presentation/pages/pengelola/laporan_masuk_page.dart';
 import '../presentation/shell/pengelola_shell.dart';
 
