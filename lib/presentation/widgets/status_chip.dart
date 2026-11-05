@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../themes/app_theme.dart';
+import '../themes/app_colors.dart';
 import '../../domain/entities/laporan.dart';
 
 class StatusChip extends StatelessWidget {
@@ -9,10 +9,10 @@ class StatusChip extends StatelessWidget {
   const StatusChip({super.key, required this.status});
 
   Color get _color => switch (status) {
-        StatusLaporan.menunggu => AppTheme.warning,
-        StatusLaporan.diproses => AppTheme.processing,
-        StatusLaporan.selesai => AppTheme.success,
-        StatusLaporan.ditolak => AppTheme.danger,
+        StatusLaporan.menunggu => AppColors.warning,
+        StatusLaporan.diproses => AppColors.processing,
+        StatusLaporan.selesai => AppColors.success,
+        StatusLaporan.ditolak => AppColors.danger,
       };
 
   @override
