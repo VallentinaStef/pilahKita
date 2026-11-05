@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../core/config/app_theme.dart';
+import '../themes/app_theme.dart';
 import '../../domain/entities/laporan.dart';
 
 class StatusChip extends StatelessWidget {

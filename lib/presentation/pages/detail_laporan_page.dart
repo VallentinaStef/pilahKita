@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../../core/config/app_theme.dart';
-import '../../../domain/entities/laporan.dart';
-import '../../controllers/laporan_controller.dart';
-import '../../widgets/status_chip.dart';
+import '../themes/app_theme.dart';
+import '../../domain/entities/laporan.dart';
+import '../controllers/laporan_controller.dart';
+import '../widgets/status_chip.dart';
 
 class DetailLaporanPage extends StatefulWidget {
   final String tiket;

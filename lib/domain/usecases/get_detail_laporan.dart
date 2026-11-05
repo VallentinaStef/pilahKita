@@ -1,5 +1,5 @@
+import '../../data/laporan_repository.dart';
 import '../entities/laporan.dart';
-import '../repositories/laporan_repository.dart';
 
 class GetDetailLaporan {
   final LaporanRepository repository;

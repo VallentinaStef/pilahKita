@@ -1,6 +1,5 @@
-import '../entities/laporan.dart';
-import '../repositories/laporan_repository.dart';
-
+import '../../data/laporan_repository.dart';
+import '../../domain/entities/laporan.dart';
 class GetDaftarLaporan {
   final LaporanRepository repository;
 
