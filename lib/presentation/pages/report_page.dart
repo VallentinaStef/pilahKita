@@ -1,13 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:pilahkita/presentation/pages/camera_page.dart';
 import '../themes/app_colors.dart';
 import '../widgets/primary_button.dart';
 import '../../domain/entities/report_location.dart';
+import '../../domain/entities/report_status.dart';
+import '../../domain/entities/report_ticket.dart';
 import '../../domain/entities/waste_size.dart';
 import '../../domain/entities/waste_type.dart';
 import '../widgets/waste_size_option.dart';
 import '../widgets/waste_type_option.dart';
 import 'pick_location_page.dart';
+import 'report_success_page.dart';
 
 class ReportPage extends StatefulWidget {
   const ReportPage({super.key});
@@ -19,15 +23,16 @@ class ReportPage extends StatefulWidget {
 class _ReportPageState extends State<ReportPage> {
   WasteType? selectedType;
   WasteSize? selectedSize;
-  bool hasPhoto = false;
+  String? selectedPhotoPath;
   bool hasLocation = false;
   ReportLocation? selectedLocation;
   bool showValidationError = false;
 
+  bool get hasPhoto => selectedPhotoPath != null;
+
   Future<void> openPickLocation() async {
-    final result = await Navigator.push<ReportLocation>(
-      context,
-      MaterialPageRoute(builder: (context) => const PickLocationPage()),
+    final result = await Get.to<ReportLocation>(
+      () => const PickLocationPage(),
     );
     if (result != null) {
       setState(() {
@@ -38,13 +43,22 @@ class _ReportPageState extends State<ReportPage> {
   }
 
   void validateAndSubmit() {
-    setState(() {
-      showValidationError =
-          !hasPhoto ||
-          selectedType == null ||
-          selectedSize == null ||
-          !hasLocation;
-    });
+    final isValid =
+        hasPhoto &&
+        selectedType != null &&
+        selectedSize != null &&
+        hasLocation;
+
+    if (isValid) {
+      const ticket = ReportTicket(
+        code: 'PK-0421',
+        status: ReportStatus.menungguValidasi,
+      );
+      Get.to(() => const ReportSuccessPage(ticket: ticket));
+      return;
+    }
+
+    setState(() => showValidationError = true);
   }
 
   Color getTypeColor(WasteType type) {
@@ -100,10 +114,8 @@ class _ReportPageState extends State<ReportPage> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      // camera placeholder
                       GestureDetector(
-                        onTap: () {
-                        },
+                        onTap: _openCamera,
                         child: Container(
                           width: double.infinity,
                           height: 130,
@@ -113,39 +125,80 @@ class _ReportPageState extends State<ReportPage> {
                               color:
                                   !hasPhoto && showValidationError
                                       ? AppColors.danger
-                                      : AppColors.primary.withValues(alpha: 0.24),
+                                      : AppColors.primary.withValues(
+                                        alpha: 0.24,
+                                      ),
                               width: !hasPhoto && showValidationError ? 2 : 1.2,
                             ),
                             borderRadius: BorderRadius.circular(14),
                           ),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Icon(
-                                hasPhoto
-                                    ? Icons.check_circle_outline
-                                    : Icons.camera_alt_outlined,
-                                size: 42,
-                                color: hasPhoto
-                                    ? AppColors.success
-                                    : AppColors.primary,
-                              ),
-                              const SizedBox(height: 8),
-                              Text(
-                                hasPhoto
-                                    ? 'Foto siap digunakan'
-                                    : 'Foto wajib diisi',
-                                style: TextStyle(
-                                  color:
-                                      !hasPhoto && showValidationError
-                                          ? AppColors.danger
-                                          : AppColors.textSecondary,
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.w600,
-                                ),
-                              ),
-                            ],
-                          ),
+                          child:
+                              selectedPhotoPath == null
+                                  ? Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Icon(
+                                        Icons.camera_alt_outlined,
+                                        size: 42,
+                                        color:
+                                            !hasPhoto && showValidationError
+                                                ? AppColors.danger
+                                                : AppColors.primary,
+                                      ),
+                                      const SizedBox(height: 8),
+                                      Text(
+                                        'Foto wajib diisi',
+                                        style: TextStyle(
+                                          color:
+                                              !hasPhoto && showValidationError
+                                                  ? AppColors.danger
+                                                  : AppColors.textSecondary,
+                                          fontSize: 12,
+                                          fontWeight: FontWeight.w600,
+                                        ),
+                                      ),
+                                    ],
+                                  )
+                                  : ClipRRect(
+                                    borderRadius: BorderRadius.circular(13),
+                                    child: Stack(
+                                      fit: StackFit.expand,
+                                      children: [
+                                        Image.asset(
+                                          selectedPhotoPath!,
+                                          fit: BoxFit.cover,
+                                        ),
+                                        const Align(
+                                          alignment: Alignment.bottomLeft,
+                                          child: Padding(
+                                            padding: EdgeInsets.all(10),
+                                            child: DecoratedBox(
+                                              decoration: BoxDecoration(
+                                                color: AppColors.success,
+                                                borderRadius: BorderRadius.all(
+                                                  Radius.circular(8),
+                                                ),
+                                              ),
+                                              child: Padding(
+                                                padding: EdgeInsets.symmetric(
+                                                  horizontal: 8,
+                                                  vertical: 5,
+                                                ),
+                                                child: Text(
+                                                  'Foto dipilih',
+                                                  style: TextStyle(
+                                                    color: Colors.white,
+                                                    fontSize: 11,
+                                                    fontWeight: FontWeight.w700,
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
                         ),
                       ),
                       const SizedBox(height: 20),
@@ -222,13 +275,16 @@ class _ReportPageState extends State<ReportPage> {
                             borderRadius: BorderRadius.circular(14),
                             border:
                                 !hasLocation && showValidationError
-                                    ? Border.all(color: AppColors.danger, width: 2)
+                                    ? Border.all(
+                                      color: AppColors.danger,
+                                      width: 2,
+                                    )
                                     : Border.all(
-                                        color: AppColors.primary.withValues(
-                                          alpha: 0.24,
-                                        ),
-                                        width: 1.2,
+                                      color: AppColors.primary.withValues(
+                                        alpha: 0.24,
                                       ),
+                                      width: 1.2,
+                                    ),
                           ),
                           child: ClipRRect(
                             borderRadius: BorderRadius.circular(16),
@@ -275,6 +331,13 @@ class _ReportPageState extends State<ReportPage> {
       ),
     );
   }
+
+  Future<void> _openCamera() async {
+    final imagePath = await Get.to<String>(() => const CameraPage());
+    if (imagePath != null && mounted) {
+      setState(() => selectedPhotoPath = imagePath);
+    }
+  }
 }
 
 class _ValidationAlert extends StatelessWidget {
@@ -295,7 +358,10 @@ class _ValidationAlert extends StatelessWidget {
         children: [
           const Text(
             '!',
-            style: TextStyle(color: AppColors.danger, fontWeight: FontWeight.w800),
+            style: TextStyle(
+              color: AppColors.danger,
+              fontWeight: FontWeight.w800,
+            ),
           ),
           const SizedBox(width: 8),
           Text(
