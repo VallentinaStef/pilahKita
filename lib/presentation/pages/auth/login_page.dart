@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../shell/home_shell.dart';
+import '../../shell/pengelola_shell.dart';
 import 'register_page.dart';
 
 class LoginPage extends StatefulWidget {
@@ -39,21 +40,43 @@ class _LoginPageState extends State<LoginPage> {
       return;
     }
 
-    RolePengguna role;
-
-    // cek role dari belakang email
     if (email.endsWith('@petugas.com')) {
-      role = RolePengguna.petugas;
-    } else if (email.endsWith('@pengelola.com')) {
-      role = RolePengguna.pengelola;
-    } else {
-      role = RolePengguna.warga;
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (context) => const HomeShell(
+            role: RolePengguna.petugas,
+          ),
+        ),
+      );
+      return;
     }
 
-    Navigator.pushReplacement(
-      context,
-      MaterialPageRoute(
-        builder: (context) => HomeShell(role: role),
+    if (email.endsWith('@pengelola.com')) {
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (context) => const PengelolaShell(),
+        ),
+      );
+      return;
+    }
+
+    if (email.contains('@')) {
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (context) => const HomeShell(
+            role: RolePengguna.warga,
+          ),
+        ),
+      );
+      return;
+    }
+
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(
+        content: Text('Email atau password salah'),
       ),
     );
   }
@@ -65,7 +88,6 @@ class _LoginPageState extends State<LoginPage> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            // header login
             Container(
               height: 300,
               width: double.infinity,
@@ -106,8 +128,6 @@ class _LoginPageState extends State<LoginPage> {
                 ),
               ),
             ),
-
-            // form login
             Padding(
               padding: const EdgeInsets.all(28),
               child: Column(
@@ -128,8 +148,6 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                   ),
                   const SizedBox(height: 28),
-
-                  // input email
                   TextField(
                     controller: emailController,
                     keyboardType: TextInputType.emailAddress,
@@ -138,10 +156,7 @@ class _LoginPageState extends State<LoginPage> {
                       prefixIcon: Icon(Icons.email_outlined),
                     ),
                   ),
-
                   const SizedBox(height: 20),
-
-                  // input pw
                   TextField(
                     controller: pwController,
                     obscureText: obscurePw,
@@ -162,10 +177,7 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                     ),
                   ),
-
                   const SizedBox(height: 28),
-
-                  // tombol masuk
                   SizedBox(
                     height: 52,
                     child: ElevatedButton(
@@ -183,10 +195,7 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                     ),
                   ),
-
                   const SizedBox(height: 16),
-
-                  // daftar warga
                   TextButton(
                     onPressed: () {
                       Navigator.push(
@@ -198,9 +207,7 @@ class _LoginPageState extends State<LoginPage> {
                     },
                     child: const Text('Daftar sebagai warga'),
                   ),
-
                   const SizedBox(height: 8),
-
                   const Text(
                     'Petugas dan Pengelola masuk dengan akun dari Pengelola.',
                     textAlign: TextAlign.center,
