@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../widgets/bottom_nav_scaffold.dart';
 import '../pages/beranda_page.dart';
 import '../pages/notifikasi_page.dart';
+import '../pages/profil_page.dart';
 
 enum RolePengguna {
   warga,
@@ -29,7 +30,11 @@ class _HomeShellState extends State<HomeShell> {
   Widget build(BuildContext context) {
     return BottomNavScaffold(
       currentIndex: _index,
-      onTap: (i) => setState(() => _index = i),
+      onTap: (i) {
+        setState(() {
+          _index = i;
+        });
+      },
       child: _buildPage(),
     );
   }
@@ -42,6 +47,7 @@ class _HomeShellState extends State<HomeShell> {
           BerandaPage(),
           Center(child: Text('Riwayat')),
           NotifikasiPage(),
+          ProfilePage(),
         ],
       );
     }
@@ -53,6 +59,7 @@ class _HomeShellState extends State<HomeShell> {
           PetugasPage(),
           Center(child: Text('Tugas')),
           NotifikasiPage(),
+          ProfilePage(),
         ],
       );
     }
@@ -63,6 +70,7 @@ class _HomeShellState extends State<HomeShell> {
         PengelolaPage(),
         Center(child: Text('Aktivitas')),
         NotifikasiPage(),
+        ProfilePage(),
       ],
     );
   }
