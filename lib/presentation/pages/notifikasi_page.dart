@@ -44,83 +44,104 @@ class _NotifikasiPageState extends State<NotifikasiPage> {
     final isiPetugas = _role == RolePengguna.petugas;
 
     return Scaffold(
-      appBar: AppBar(
-        title: Text(isiPetugas ? 'Notifikasi petugas' : 'Notifikasi'),
-        actions: [
-          IconButton(
-            tooltip:
-                isiPetugas ? 'Lihat sebagai warga' : 'Lihat sebagai petugas',
-            icon: Icon(
-              isiPetugas ? Icons.person : Icons.badge_outlined,
-              color: AppColors.primary,
-            ),
-            onPressed: _toggleRole,
-          ),
-          Padding(
-            padding: const EdgeInsets.only(right: 16),
-            child: Center(
-              child: Obx(() {
-                final belum = controller.jumlahBelumDibaca;
-                return Container(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 10,
-                    vertical: 4,
-                  ),
-                  decoration: BoxDecoration(
-                    color: AppColors.surface,
-                    borderRadius: BorderRadius.circular(20),
-                    border: Border.all(color: AppColors.primary, width: 1.2),
-                  ),
-                  child: Text(
-                    '$belum belum dibaca',
-                    style: const TextStyle(
-                      fontSize: 11,
-                      color: AppColors.primary,
-                      fontWeight: FontWeight.w600,
+      body: SafeArea(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Container(
+              width: double.infinity,
+              padding: const EdgeInsets.fromLTRB(24, 22, 24, 20),
+              decoration: const BoxDecoration(
+                color: AppColors.primary,
+                borderRadius: BorderRadius.only(
+                  bottomLeft: Radius.circular(24),
+                  bottomRight: Radius.circular(24),
+                ),
+              ),
+              child: Row(
+                children: [
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          isiPetugas ? 'Notifikasi petugas' : 'Notifikasi',
+                          style: const TextStyle(
+                            color: Colors.white,
+                            fontSize: 22,
+                            fontWeight: FontWeight.w700,
+                          ),
+                        ),
+                        const SizedBox(height: 4),
+                        Obx(() {
+                          final belum = controller.jumlahBelumDibaca;
+                          return Text(
+                            '$belum belum dibaca',
+                            style: const TextStyle(
+                              color: Colors.white70,
+                              fontSize: 12,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          );
+                        }),
+                      ],
                     ),
                   ),
+                  IconButton(
+                    tooltip:
+                        isiPetugas
+                            ? 'Lihat sebagai warga'
+                            : 'Lihat sebagai petugas',
+                    icon: Icon(
+                      isiPetugas ? Icons.person : Icons.badge_outlined,
+                      color: Colors.white,
+                    ),
+                    onPressed: _toggleRole,
+                  ),
+                ],
+              ),
+            ),
+            Expanded(
+              child: Obx(() {
+                if (controller.isLoading.value) {
+                  return const Center(child: CircularProgressIndicator());
+                }
+                final grupList = controller.grupList;
+                if (grupList.isEmpty) {
+                  return const Center(
+                    child: Text(
+                      'Belum ada notifikasi',
+                      style: TextStyle(color: AppColors.textSecondary),
+                    ),
+                  );
+                }
+                return ListView(
+                  padding: const EdgeInsets.all(16),
+                  children: [
+                    for (final grup in grupList) ...[
+                      Padding(
+                        padding: const EdgeInsets.only(top: 8, bottom: 8),
+                        child: Text(
+                          grup,
+                          style: const TextStyle(
+                            fontSize: 14,
+                            fontWeight: FontWeight.w700,
+                            color: AppColors.textSecondary,
+                          ),
+                        ),
+                      ),
+                      ...controller
+                          .perGrup(grup)
+                          .map((n) => _NotifikasiTile(notifikasi: n)),
+                      const SizedBox(height: 8),
+                    ],
+                  ],
                 );
               }),
             ),
-          ),
-        ],
-      ),
-      body: Obx(() {
-        if (controller.isLoading.value) {
-          return const Center(child: CircularProgressIndicator());
-        }
-        final grupList = controller.grupList;
-        if (grupList.isEmpty) {
-          return const Center(
-            child: Text(
-              'Belum ada notifikasi',
-              style: TextStyle(color: AppColors.textSecondary),
-            ),
-          );
-        }
-        return ListView(
-          padding: const EdgeInsets.all(16),
-          children: [
-            for (final grup in grupList) ...[
-              Padding(
-                padding: const EdgeInsets.only(top: 8, bottom: 8),
-                child: Text(
-                  grup,
-                  style: const TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w700,
-                    color: AppColors.textSecondary,
-                  ),
-                ),
-              ),
-              ...controller
-                  .perGrup(grup)
-                  .map((n) => _NotifikasiTile(notifikasi: n)),
-              const SizedBox(height: 8),
-            ],
           ],
-        );
-      }),
+        ),
+      ),
     );
   }
 }
