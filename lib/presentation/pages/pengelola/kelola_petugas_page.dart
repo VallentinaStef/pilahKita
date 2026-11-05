@@ -67,17 +67,47 @@ class _KelolaPetugasPageState extends State<KelolaPetugasPage> {
     }
   }
 
-  void nonaktifkan(int index) {
-    setState(() {
-      petugas[index]['aktif'] = false;
-    });
+void nonaktifkan(int index) {
+  showDialog(
+    context: context,
+    builder: (context) {
+      return AlertDialog(
+        title: const Text('Nonaktifkan Petugas?'),
+        content: Text(
+          'Apakah Anda yakin ingin menonaktifkan ${petugas[index]['nama']}?',
+        ),
+        actions: [
+          TextButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            child: const Text('Batal'),
+          ),
+          ElevatedButton(
+            onPressed: () {
+              setState(() {
+                petugas[index]['aktif'] = false;
+              });
 
-    ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(
-        content: Text('Petugas berhasil dinonaktifkan'),
-      ),
-    );
-  }
+              Navigator.pop(context);
+
+              ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(
+                  content: Text('Petugas berhasil dinonaktifkan'),
+                ),
+              );
+            },
+            style: ElevatedButton.styleFrom(
+              backgroundColor: const Color(0xFF104B37),
+              foregroundColor: Colors.white,
+            ),
+            child: const Text('Nonaktifkan'),
+          ),
+        ],
+      );
+    },
+  );
+}
 
   void aktifkan(int index) {
     setState(() {
