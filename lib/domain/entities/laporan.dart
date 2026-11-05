@@ -65,4 +65,34 @@ class Laporan {
   };
 
   String get ringkasan => '$jenisLabel, volume $volumeLabel';
+
+  Laporan copyWith({
+    String? tiket,
+    StatusLaporan? status,
+    String? alamat,
+    JenisSampah? jenisSampah,
+    VolumeSampah? volume,
+    DateTime? tanggal,
+    String? petugas,
+    String? alasanPenolakan,
+    String? fotoWarga,
+    String? fotoSebelum,
+    String? fotoSesudah,
+    List<LangkahStatus>? timeline,
+  }) {
+    return Laporan(
+      tiket: tiket ?? this.tiket,
+      status: status ?? this.status,
+      alamat: alamat ?? this.alamat,
+      jenisSampah: jenisSampah ?? this.jenisSampah,
+      volume: volume ?? this.volume,
+      tanggal: tanggal ?? this.tanggal,
+      petugas: petugas ?? this.petugas,
+      alasanPenolakan: alasanPenolakan ?? this.alasanPenolakan,
+      fotoWarga: fotoWarga ?? this.fotoWarga,
+      fotoSebelum: fotoSebelum ?? this.fotoSebelum,
+      fotoSesudah: fotoSesudah ?? this.fotoSesudah,
+      timeline: timeline ?? this.timeline,
+    );
+  }
 }
