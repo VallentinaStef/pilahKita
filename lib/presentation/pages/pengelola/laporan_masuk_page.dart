@@ -9,7 +9,7 @@ import '../../../domain/entities/laporan.dart';
 class LaporanMasukPage extends StatelessWidget {
   LaporanMasukPage({super.key});
 
-  final controller = Get.put(PengelolaController());
+  final controller = Get.find<PengelolaController>();
 
   @override
   Widget build(BuildContext context) {
@@ -192,10 +192,8 @@ class LaporanMasukPage extends StatelessWidget {
                           color: AppColors.textSecondary,
                         ),
                         onTap: () {
-                          Get.snackbar(
-                            'Laporan dipilih',
-                            'Nomor tiket: ${item.tiket}',
-                            snackPosition: SnackPosition.BOTTOM,
+                          Get.toNamed(
+                            '/pengelola/detail-laporan?tiket=${item.tiket}',
                           );
                         },
                       ),

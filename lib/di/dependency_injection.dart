@@ -8,6 +8,7 @@ import '../domain/usecases/get_daftar_notifikasi.dart';
 import '../presentation/controllers/laporan_controller.dart';
 import '../presentation/controllers/notifikasi_controller.dart';
 import '../presentation/controllers/dashboard_controller.dart';
+import '../presentation/controllers/pengelola_controller.dart';
 
 class DependencyInjection {
   DependencyInjection._();
@@ -36,5 +37,6 @@ class DependencyInjection {
       NotifikasiController(getDaftarNotifikasi: getDaftarNotifikasi),
       permanent: true,
     );
+    Get.put(PengelolaController(), permanent: true);
   }
 }
