@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../themes/app_theme.dart';
+import '../themes/app_colors.dart';
 import '../controllers/laporan_controller.dart';
 import '../widgets/laporan_card.dart';
 import 'detail_laporan_page.dart';
@@ -53,7 +53,7 @@ class RiwayatPage extends GetView<LaporanController> {
                             horizontal: 18, vertical: 8),
                         decoration: BoxDecoration(
                           color:
-                              dipilih ? AppTheme.accent : AppTheme.primary,
+                              dipilih ? AppColors.accent : AppColors.primary,
                           borderRadius: BorderRadius.circular(20),
                         ),
                         child: Text(
@@ -62,7 +62,7 @@ class RiwayatPage extends GetView<LaporanController> {
                             fontSize: 13,
                             fontWeight: FontWeight.w600,
                             color: dipilih
-                                ? AppTheme.primary
+                                ? AppColors.primary
                                 : Colors.white,
                           ),
                         ),
@@ -83,7 +83,7 @@ class RiwayatPage extends GetView<LaporanController> {
                 return const Center(
                   child: Text(
                     'Tidak ada laporan pada filter ini',
-                    style: TextStyle(color: AppTheme.textSecondary),
+                    style: TextStyle(color: AppColors.textSecondary),
                   ),
                 );
               }
