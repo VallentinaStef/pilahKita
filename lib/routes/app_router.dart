@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import '../presentation/pages/detail_laporan_page.dart';
 import '../presentation/shell/home_shell.dart';
 import '../presentation/pages/pengelola/laporan_masuk_page.dart';
+import '../presentation/shell/pengelola_shell.dart';
 
 class AppRouter {
   AppRouter._();
@@ -19,5 +20,6 @@ class AppRouter {
       },
     ),
     GetPage(name: '/pengelola/laporan-masuk', page: () => LaporanMasukPage()),
+    GetPage(name: '/pengelola', page: () => const PengelolaShell()),
   ];
 }

@@ -7,6 +7,7 @@ import '../domain/usecases/get_detail_laporan.dart';
 import '../domain/usecases/get_daftar_notifikasi.dart';
 import '../presentation/controllers/laporan_controller.dart';
 import '../presentation/controllers/notifikasi_controller.dart';
+import '../presentation/controllers/dashboard_controller.dart';
 
 class DependencyInjection {
   DependencyInjection._();
@@ -26,11 +27,13 @@ class DependencyInjection {
       ),
       permanent: true,
     );
+    Get.put(
+      DashboardController(laporanController: Get.find<LaporanController>()),
+      permanent: true,
+    );
 
     Get.put(
-      NotifikasiController(
-        getDaftarNotifikasi: getDaftarNotifikasi,
-      ),
+      NotifikasiController(getDaftarNotifikasi: getDaftarNotifikasi),
       permanent: true,
     );
   }
