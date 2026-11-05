@@ -3,7 +3,6 @@ import 'package:get/get.dart';
 
 import '../../controllers/pengelola_controller.dart';
 import '../../themes/app_colors.dart';
-import '../../../domain/entities/laporan.dart';
 import '../../../domain/entities/petugas.dart';
 import 'detail_laporan_pengelola_page.dart' show PetaLaporanPainter;
 

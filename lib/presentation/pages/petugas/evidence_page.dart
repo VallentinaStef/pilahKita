@@ -258,7 +258,7 @@ class _DarkStripePainter extends CustomPainter {
   void paint(Canvas canvas, Size size) {
     final p =
         Paint()
-          ..color = Colors.white.withOpacity(.035)
+          ..color = Colors.white.withValues(alpha: .035)
           ..strokeWidth = 12;
     for (double x = -size.height; x < size.width + size.height; x += 28) {
       canvas.drawLine(Offset(x, size.height), Offset(x + size.height, 0), p);

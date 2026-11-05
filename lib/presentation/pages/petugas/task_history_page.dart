@@ -18,7 +18,7 @@ class TaskHistoryPage extends StatefulWidget {
 class _TaskHistoryPageState extends State<TaskHistoryPage> {
   String _filter = 'Bulan ini';
   List<Task> get _filteredTasks {
-    if (_filter == 'Minggu ini')
+    if (_filter == 'Minggu ini') {
       return widget.tasks
           .where(
             (task) =>
@@ -26,6 +26,7 @@ class _TaskHistoryPageState extends State<TaskHistoryPage> {
                 (task.completedAtLabel ?? '').contains('28 Okt'),
           )
           .toList();
+    }
     return widget.tasks;
   }
 

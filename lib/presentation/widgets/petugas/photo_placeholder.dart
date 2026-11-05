@@ -51,7 +51,7 @@ class _StripePainter extends CustomPainter {
   void paint(Canvas canvas, Size size) {
     final paint =
         Paint()
-          ..color = Colors.white.withOpacity(.28)
+          ..color = Colors.white.withValues(alpha: .28)
           ..strokeWidth = 9;
     for (double x = -size.height; x < size.width + size.height; x += 24) {
       canvas.drawLine(
