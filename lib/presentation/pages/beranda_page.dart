@@ -156,12 +156,6 @@ class BerandaPage extends StatelessWidget {
                             ),
                           ),
                         ),
-                      ElevatedButton(
-                        onPressed: () {
-                          Get.toNamed('/pengelola');
-                        },
-                        child: const Text('Dashboard Pengelola'),
-                      ),
                     ],
                   ),
                 ),
