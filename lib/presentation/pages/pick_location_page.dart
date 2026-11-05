@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../domain/entities/report_location.dart';
-import '../theme/app_colors.dart';
+import '../themes/app_colors.dart';
 import '../widgets/primary_button.dart';
 
 class PickLocationPage extends StatelessWidget {
@@ -21,13 +21,12 @@ class PickLocationPage extends StatelessWidget {
     return Scaffold(
       body: Stack(
         children: [
-          // gambar peta
           Positioned.fill(
             child: Image.asset(
               'lib/assets/map-placeholder.png',
               fit: BoxFit.cover,
               errorBuilder: (context, error, stackTrace) {
-                return Container(color: AppColors.mapGreen);
+                return Container(color: AppColors.background);
               },
             ),
           ),
@@ -47,13 +46,13 @@ class PickLocationPage extends StatelessWidget {
                       vertical: 6,
                     ),
                     decoration: BoxDecoration(
-                      color: AppColors.lime,
+                      color: AppColors.accent,
                       borderRadius: BorderRadius.circular(20),
                     ),
                     child: const Text(
                       'Pakai lokasi saya',
                       style: TextStyle(
-                        color: AppColors.darkGreen,
+                        color: AppColors.primary,
                         fontSize: 12,
                         fontWeight: FontWeight.w700,
                       ),
@@ -82,7 +81,7 @@ class PickLocationPage extends StatelessWidget {
                     Text(
                       currentLocation.address,
                       style: const TextStyle(
-                        color: AppColors.textDark,
+                        color: AppColors.textPrimary,
                         fontSize: 20,
                         fontWeight: FontWeight.bold,
                       ),
@@ -91,14 +90,14 @@ class PickLocationPage extends StatelessWidget {
                     Text(
                       '${currentLocation.area}. ${currentLocation.latitude}, ${currentLocation.longitude}',
                       style: const TextStyle(
-                        color: AppColors.textGrey,
+                        color: AppColors.textSecondary,
                         fontSize: 12,
                       ),
                     ),
                     const SizedBox(height: 8),
                     const Text(
                       'Geser peta untuk memindahkan titik.',
-                      style: TextStyle(color: AppColors.textGrey, fontSize: 12),
+                      style: TextStyle(color: AppColors.textSecondary, fontSize: 12),
                     ),
                     const Spacer(),
                     AppButton(

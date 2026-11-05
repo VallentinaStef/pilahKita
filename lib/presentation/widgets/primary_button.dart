@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../theme/app_colors.dart';
+import '../themes/app_colors.dart';
 
 class AppButton extends StatelessWidget {
   final String text;
@@ -14,13 +14,13 @@ class AppButton extends StatelessWidget {
     required this.text,
     required this.onPressed,
     this.outlined = false,
-    this.color = AppColors.green,
+    this.color = AppColors.primary,
     this.textColor,
   });
 
   @override
   Widget build(BuildContext context) {
-    final fontColor = textColor ?? (outlined ? AppColors.green : Colors.white);
+    final fontColor = textColor ?? (outlined ? AppColors.primary : Colors.white);
 
     const leafShape = BorderRadius.only(
       topLeft: Radius.circular(36),

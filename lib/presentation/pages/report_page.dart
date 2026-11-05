@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import '../theme/app_colors.dart';
+import 'package:get/get.dart';
+import '../themes/app_colors.dart';
 import '../widgets/primary_button.dart';
 import '../../domain/entities/report_location.dart';
 import '../../domain/entities/waste_size.dart';
@@ -60,16 +61,26 @@ class _ReportPageState extends State<ReportPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.mapGreen,
+      backgroundColor: AppColors.background,
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(24),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                'Laporkan sampah',
-                style: Theme.of(context).textTheme.titleLarge,
+              Row(
+                children: [
+                  IconButton(
+                    onPressed: () => Get.back(),
+                    icon: const Icon(Icons.arrow_back),
+                    color: AppColors.primary,
+                  ),
+                  const SizedBox(width: 6),
+                  Text(
+                    'Laporkan sampah',
+                    style: Theme.of(context).textTheme.titleLarge,
+                  ),
+                ],
               ),
               const SizedBox(height: 16),
               if (showValidationError) ...[
@@ -98,15 +109,15 @@ class _ReportPageState extends State<ReportPage> {
                           width: double.infinity,
                           height: 130,
                           decoration: BoxDecoration(
-                            color: Colors.white,
+                            color: AppColors.surface,
                             border: Border.all(
                               color:
                                   !hasPhoto && showValidationError
-                                      ? AppColors.red
-                                      : AppColors.border.withValues(alpha: 0.7),
-                              width: !hasPhoto && showValidationError ? 2 : 1,
+                                      ? AppColors.danger
+                                      : AppColors.primary.withValues(alpha: 0.24),
+                              width: !hasPhoto && showValidationError ? 2 : 1.2,
                             ),
-                            borderRadius: BorderRadius.circular(16),
+                            borderRadius: BorderRadius.circular(14),
                           ),
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
@@ -115,8 +126,10 @@ class _ReportPageState extends State<ReportPage> {
                                 hasPhoto
                                     ? Icons.check_circle_outline
                                     : Icons.camera_alt_outlined,
-                                size: 48,
-                                color: AppColors.darkGreen,
+                                size: 42,
+                                color: hasPhoto
+                                    ? AppColors.success
+                                    : AppColors.primary,
                               ),
                               const SizedBox(height: 8),
                               Text(
@@ -126,8 +139,8 @@ class _ReportPageState extends State<ReportPage> {
                                 style: TextStyle(
                                   color:
                                       !hasPhoto && showValidationError
-                                          ? AppColors.red
-                                          : AppColors.textGrey,
+                                          ? AppColors.danger
+                                          : AppColors.textSecondary,
                                   fontSize: 12,
                                   fontWeight: FontWeight.w600,
                                 ),
@@ -142,15 +155,16 @@ class _ReportPageState extends State<ReportPage> {
                         style: TextStyle(
                           color:
                               selectedType == null && showValidationError
-                                  ? AppColors.red
-                                  : AppColors.textDark,
-                          fontSize: 12,
-                          fontWeight: FontWeight.w600,
+                                  ? AppColors.danger
+                                  : AppColors.textPrimary,
+                          fontSize: 13,
+                          fontWeight: FontWeight.w700,
+                          letterSpacing: 0.1,
                         ),
                       ),
                       const SizedBox(height: 8),
                       Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children:
                             WasteType.values.map((type) {
                               return WasteTypeOption(
@@ -170,10 +184,11 @@ class _ReportPageState extends State<ReportPage> {
                         style: TextStyle(
                           color:
                               selectedSize == null && showValidationError
-                                  ? AppColors.red
-                                  : AppColors.textDark,
-                          fontSize: 12,
-                          fontWeight: FontWeight.w600,
+                                  ? AppColors.danger
+                                  : AppColors.textPrimary,
+                          fontSize: 13,
+                          fontWeight: FontWeight.w700,
+                          letterSpacing: 0.1,
                         ),
                       ),
                       const SizedBox(height: 8),
@@ -186,6 +201,11 @@ class _ReportPageState extends State<ReportPage> {
                                 isSelected: selectedSize == size,
                                 hasError:
                                     selectedSize == null && showValidationError,
+                                backgroundColor: switch (size) {
+                                  WasteSize.kecil => AppColors.warning,
+                                  WasteSize.sedang => AppColors.processing,
+                                  WasteSize.besar => AppColors.danger,
+                                },
                                 onTap:
                                     () => setState(() => selectedSize = size),
                               );
@@ -199,12 +219,17 @@ class _ReportPageState extends State<ReportPage> {
                           width: double.infinity,
                           height: 90,
                           decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(16),
+                            color: AppColors.surface,
+                            borderRadius: BorderRadius.circular(14),
                             border:
                                 !hasLocation && showValidationError
-                                    ? Border.all(color: AppColors.red, width: 2)
-                                    : null,
+                                    ? Border.all(color: AppColors.danger, width: 2)
+                                    : Border.all(
+                                        color: AppColors.primary.withValues(
+                                          alpha: 0.24,
+                                        ),
+                                        width: 1.2,
+                                      ),
                           ),
                           child: ClipRRect(
                             borderRadius: BorderRadius.circular(16),
@@ -231,8 +256,8 @@ class _ReportPageState extends State<ReportPage> {
                           fontSize: 12,
                           color:
                               !hasLocation && showValidationError
-                                  ? AppColors.red
-                                  : AppColors.textGrey,
+                                  ? AppColors.danger
+                                  : AppColors.textSecondary,
                           fontWeight:
                               !hasLocation && showValidationError
                                   ? FontWeight.w600
@@ -264,20 +289,20 @@ class _ValidationAlert extends StatelessWidget {
       width: double.infinity,
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 9),
       decoration: BoxDecoration(
-        color: AppColors.pink,
+        color: AppColors.rejectBackground,
         borderRadius: BorderRadius.circular(10),
       ),
       child: Row(
         children: [
           const Text(
             '!',
-            style: TextStyle(color: AppColors.red, fontWeight: FontWeight.w800),
+            style: TextStyle(color: AppColors.danger, fontWeight: FontWeight.w800),
           ),
           const SizedBox(width: 8),
           Text(
             '$missingCount isian belum lengkap. Lengkapi lalu kirim lagi.',
             style: const TextStyle(
-              color: AppColors.red,
+              color: AppColors.danger,
               fontSize: 12,
               fontWeight: FontWeight.w500,
             ),
