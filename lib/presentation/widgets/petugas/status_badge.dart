@@ -1,43 +1,42 @@
 import 'package:flutter/material.dart';
-
-import '../../theme/app_colors.dart';
+import '../../../domain/entities/task.dart';
+import '../../themes/app_colors.dart';
 
 class StatusBadge extends StatelessWidget {
-  final String status;
-
-  const StatusBadge({
-    super.key,
-    required this.status,
-  });
+  final TaskStatus status;
+  const StatusBadge({super.key, required this.status});
 
   @override
   Widget build(BuildContext context) {
-    Color background;
-    Color foreground;
-
-    if (status == 'Selesai') {
-      background = AppColors.line;
-      foreground = AppColors.green;
-    } else if (status == 'Dalam proses') {
-      background = AppColors.pink;
-      foreground = const Color(0xFF94600A);
-    } else {
-      background = AppColors.teal;
-      foreground = const Color(0xFF405B9A);
+    late Color color;
+    late String label;
+    switch (status) {
+      case TaskStatus.ditugaskan:
+        color = const Color(0xFF315D75);
+        label = 'Ditugaskan';
+        break;
+      case TaskStatus.dalamProses:
+        color = const Color(0xFF9A4D25);
+        label = 'Dalam proses';
+        break;
+      case TaskStatus.selesai:
+        color = AppColors.success;
+        label = 'Selesai';
+        break;
     }
-
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+      padding: const EdgeInsets.symmetric(horizontal: 9, vertical: 4),
       decoration: BoxDecoration(
-        color: background,
-        borderRadius: BorderRadius.circular(20),
+        color: Colors.white,
+        border: Border.all(color: color, width: 1.2),
+        borderRadius: BorderRadius.circular(9),
       ),
       child: Text(
-        status,
+        label,
         style: TextStyle(
-          color: foreground,
+          color: color,
           fontSize: 10,
-          fontWeight: FontWeight.bold,
+          fontWeight: FontWeight.w800,
         ),
       ),
     );
