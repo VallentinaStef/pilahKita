@@ -103,7 +103,6 @@ class _ReportPageState extends State<ReportPage> {
                       // camera placeholder
                       GestureDetector(
                         onTap: () {
-                          // TODO: buka halaman kamera
                         },
                         child: Container(
                           width: double.infinity,
