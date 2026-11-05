@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 
 import '../pages/pengelola/laporan_masuk_page.dart';
+import '../pages/pengelola/monitoring_map_page.dart';
 import '../pages/pengelola/dashboard_pengelola_page.dart';
+import '../pages/pengelola/kelola_petugas_page.dart';
 import '../themes/app_colors.dart';
 
 class PengelolaShell extends StatefulWidget {
@@ -16,9 +18,9 @@ class _PengelolaShellState extends State<PengelolaShell> {
 
   final List<Widget> _pages = [
     LaporanMasukPage(),
-    const Center(child: Text('Peta Pemantauan')),
+    const MonitoringMapPage(),
     const DashboardPengelolaPage(),
-    const Center(child: Text('Kelola Petugas')),
+    const KelolaPetugasPage(),
   ];
 
   final List<IconData> _icons = [
@@ -28,7 +30,12 @@ class _PengelolaShellState extends State<PengelolaShell> {
     Icons.people_outline,
   ];
 
-  final List<String> _labels = ['Laporan', 'Peta', 'Dashboard', 'Petugas'];
+  final List<String> _labels = [
+    'Laporan',
+    'Peta',
+    'Dashboard',
+    'Petugas',
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -48,17 +55,14 @@ class _PengelolaShellState extends State<PengelolaShell> {
               for (int i = 0; i < _labels.length; i++)
                 Expanded(
                   child: InkWell(
-                    onTap: () {
-                      setState(() {
-                        _index = i;
-                      });
-                    },
+                    onTap: () => setState(() => _index = i),
                     borderRadius: BorderRadius.circular(12),
                     child: Container(
                       padding: const EdgeInsets.symmetric(vertical: 8),
                       decoration: BoxDecoration(
-                        color:
-                            _index == i ? AppColors.accent : Colors.transparent,
+                        color: _index == i
+                            ? AppColors.accent
+                            : Colors.transparent,
                         borderRadius: BorderRadius.circular(12),
                       ),
                       child: Column(
@@ -66,8 +70,9 @@ class _PengelolaShellState extends State<PengelolaShell> {
                         children: [
                           Icon(
                             _icons[i],
-                            color:
-                                _index == i ? AppColors.primary : Colors.white,
+                            color: _index == i
+                                ? AppColors.primary
+                                : Colors.white,
                             size: 21,
                           ),
                           const SizedBox(height: 3),
@@ -75,10 +80,9 @@ class _PengelolaShellState extends State<PengelolaShell> {
                             _labels[i],
                             style: TextStyle(
                               fontSize: 10,
-                              color:
-                                  _index == i
-                                      ? AppColors.primary
-                                      : Colors.white,
+                              color: _index == i
+                                  ? AppColors.primary
+                                  : Colors.white,
                             ),
                           ),
                         ],

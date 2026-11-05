@@ -5,7 +5,7 @@ class DummyPetugas {
 
   static const Petugas current = Petugas(
     id: 'PTG-001',
-    nama: 'Dedi',
+    nama: 'Dedi Kurniawan',
     email: 'dedi@pilahkita.id',
     nomorTelepon: '0812-3456-7890',
     jabatan: 'Petugas Kebersihan',
@@ -16,7 +16,7 @@ class DummyPetugas {
     current,
     Petugas(
       id: 'PTG-002',
-      nama: 'Yusuf',
+      nama: 'Yusuf Pratama',
       email: 'yusuf@pilahkita.id',
       nomorTelepon: '0813-4567-8901',
       jabatan: 'Petugas Kebersihan',
