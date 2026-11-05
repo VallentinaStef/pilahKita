@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:pilahkita/presentation/pages/gallery_page.dart';
+import 'package:pilahkita/presentation/pages/photo_preview_page.dart';
 import '../themes/app_colors.dart';
 import '../widgets/scan_corner.dart';
 
@@ -10,6 +13,7 @@ class CameraPage extends StatefulWidget {
 }
 
 class _CameraPageState extends State<CameraPage> {
+  static const _placeholderImage = 'lib/assets/sampah-numpuk.jpg';
   bool isFlashOn = false;
 
   @override
@@ -20,7 +24,7 @@ class _CameraPageState extends State<CameraPage> {
         children: [
           Positioned.fill(
             child: Image.asset(
-              'lib/assets/sampah-numpuk.jpg',
+              _placeholderImage,
               fit: BoxFit.cover,
             ),
           ),
@@ -42,7 +46,7 @@ class _CameraPageState extends State<CameraPage> {
                     top: 16,
                     left: 16,
                     child: GestureDetector(
-                      onTap: () => Navigator.pop(context),
+                      onTap: Get.back,
                       child: Container(
                         width: 44,
                         height: 44,
@@ -103,9 +107,7 @@ class _CameraPageState extends State<CameraPage> {
                     children: [
                   // galeri
                   GestureDetector(
-                    onTap: () {
-                      // TODO: buka galeri
-                    },
+                    onTap: _openGallery,
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       children: [
@@ -129,7 +131,7 @@ class _CameraPageState extends State<CameraPage> {
                   // cekrek
                   GestureDetector(
                     onTap: () {
-                      // TODO: ambil foto lalu buka pratinjau
+                      _openPreview();
                     },
                     child: Container(
                       width: 76,
@@ -167,5 +169,21 @@ class _CameraPageState extends State<CameraPage> {
         ],
       ),
     );
+  }
+
+  Future<void> _openPreview() async {
+    final imagePath = await Get.to<String>(
+      () => const PhotoPreviewPage(imagePath: _placeholderImage),
+    );
+    if (imagePath != null && mounted) {
+      Get.back(result: imagePath);
+    }
+  }
+
+  Future<void> _openGallery() async {
+    final imagePath = await Get.to<String>(() => const GalleryPage());
+    if (imagePath != null && mounted) {
+      Get.back(result: imagePath);
+    }
   }
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import '../../domain/entities/report_location.dart';
 import '../themes/app_colors.dart';
 import '../widgets/primary_button.dart';
@@ -38,7 +39,7 @@ class PickLocationPage extends StatelessWidget {
                 alignment: Alignment.topLeft,
                 child: GestureDetector(
                   onTap: () {
-                    // TODO: ambil lokasi saat ini
+                    Get.to((){});
                   },
                   child: Container(
                     padding: const EdgeInsets.symmetric(
@@ -102,7 +103,7 @@ class PickLocationPage extends StatelessWidget {
                     const Spacer(),
                     AppButton(
                       text: 'Konfirmasi lokasi',
-                      onPressed: () => Navigator.pop(context, currentLocation),
+                      onPressed: () => Get.back(result: currentLocation),
                     ),
                   ],
                 ),

@@ -9,6 +9,7 @@ import '../../domain/entities/waste_type.dart';
 import '../widgets/waste_size_option.dart';
 import '../widgets/waste_type_option.dart';
 import 'pick_location_page.dart';
+import '../../routes/app_router.dart';
 
 class ReportPage extends StatefulWidget {
   const ReportPage({super.key});
@@ -20,15 +21,16 @@ class ReportPage extends StatefulWidget {
 class _ReportPageState extends State<ReportPage> {
   WasteType? selectedType;
   WasteSize? selectedSize;
-  bool hasPhoto = false;
+  String? selectedPhotoPath;
   bool hasLocation = false;
   ReportLocation? selectedLocation;
   bool showValidationError = false;
 
+  bool get hasPhoto => selectedPhotoPath != null;
+
   Future<void> openPickLocation() async {
-    final result = await Navigator.push<ReportLocation>(
-      context,
-      MaterialPageRoute(builder: (context) => const PickLocationPage()),
+    final result = await Get.to<ReportLocation>(
+      () => const PickLocationPage(),
     );
     if (result != null) {
       setState(() {
@@ -39,13 +41,18 @@ class _ReportPageState extends State<ReportPage> {
   }
 
   void validateAndSubmit() {
-    setState(() {
-      showValidationError =
-          !hasPhoto ||
-          selectedType == null ||
-          selectedSize == null ||
-          !hasLocation;
-    });
+    final isValid =
+        hasPhoto &&
+        selectedType != null &&
+        selectedSize != null &&
+        hasLocation;
+
+    if (isValid) {
+      Get.offAllNamed(AppRouter.home);
+      return;
+    }
+
+    setState(() => showValidationError = true);
   }
 
   Color getTypeColor(WasteType type) {
@@ -102,9 +109,7 @@ class _ReportPageState extends State<ReportPage> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       GestureDetector(
-                        onTap: () {
-                          Get.to(() => CameraPage());
-                        },
+                        onTap: _openCamera,
                         child: Container(
                           width: double.infinity,
                           height: 130,
@@ -121,35 +126,73 @@ class _ReportPageState extends State<ReportPage> {
                             ),
                             borderRadius: BorderRadius.circular(14),
                           ),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Icon(
-                                hasPhoto
-                                    ? Icons.check_circle_outline
-                                    : Icons.camera_alt_outlined,
-                                size: 42,
-                                color:
-                                    hasPhoto
-                                        ? AppColors.success
-                                        : AppColors.primary,
-                              ),
-                              const SizedBox(height: 8),
-                              Text(
-                                hasPhoto
-                                    ? 'Foto siap digunakan'
-                                    : 'Foto wajib diisi',
-                                style: TextStyle(
-                                  color:
-                                      !hasPhoto && showValidationError
-                                          ? AppColors.danger
-                                          : AppColors.textSecondary,
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.w600,
-                                ),
-                              ),
-                            ],
-                          ),
+                          child:
+                              selectedPhotoPath == null
+                                  ? Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Icon(
+                                        Icons.camera_alt_outlined,
+                                        size: 42,
+                                        color:
+                                            !hasPhoto && showValidationError
+                                                ? AppColors.danger
+                                                : AppColors.primary,
+                                      ),
+                                      const SizedBox(height: 8),
+                                      Text(
+                                        'Foto wajib diisi',
+                                        style: TextStyle(
+                                          color:
+                                              !hasPhoto && showValidationError
+                                                  ? AppColors.danger
+                                                  : AppColors.textSecondary,
+                                          fontSize: 12,
+                                          fontWeight: FontWeight.w600,
+                                        ),
+                                      ),
+                                    ],
+                                  )
+                                  : ClipRRect(
+                                    borderRadius: BorderRadius.circular(13),
+                                    child: Stack(
+                                      fit: StackFit.expand,
+                                      children: [
+                                        Image.asset(
+                                          selectedPhotoPath!,
+                                          fit: BoxFit.cover,
+                                        ),
+                                        const Align(
+                                          alignment: Alignment.bottomLeft,
+                                          child: Padding(
+                                            padding: EdgeInsets.all(10),
+                                            child: DecoratedBox(
+                                              decoration: BoxDecoration(
+                                                color: AppColors.success,
+                                                borderRadius: BorderRadius.all(
+                                                  Radius.circular(8),
+                                                ),
+                                              ),
+                                              child: Padding(
+                                                padding: EdgeInsets.symmetric(
+                                                  horizontal: 8,
+                                                  vertical: 5,
+                                                ),
+                                                child: Text(
+                                                  'Foto dipilih',
+                                                  style: TextStyle(
+                                                    color: Colors.white,
+                                                    fontSize: 11,
+                                                    fontWeight: FontWeight.w700,
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
                         ),
                       ),
                       const SizedBox(height: 20),
@@ -281,6 +324,13 @@ class _ReportPageState extends State<ReportPage> {
         ),
       ),
     );
+  }
+
+  Future<void> _openCamera() async {
+    final imagePath = await Get.to<String>(() => const CameraPage());
+    if (imagePath != null && mounted) {
+      setState(() => selectedPhotoPath = imagePath);
+    }
   }
 }
 
