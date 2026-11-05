@@ -6,6 +6,7 @@ import 'profil_page.dart';
 import '../themes/app_colors.dart';
 import '../controllers/laporan_controller.dart';
 import '../widgets/laporan_card.dart';
+import 'detail_laporan_page.dart';
 
 class BerandaPage extends StatelessWidget {
   const BerandaPage({super.key});
@@ -102,18 +103,18 @@ class BerandaPage extends StatelessWidget {
                           color: const Color(0xFF17643F),
                           borderRadius: BorderRadius.circular(24),
                         ),
-                        child: const Row(
+                        child: Row(
                           children: [
                             Text(
-                              '1',
-                              style: TextStyle(
+                              '${controller.jumlahSelesai}',
+                              style: const TextStyle(
                                 color: AppColors.accent,
                                 fontSize: 20,
                                 fontWeight: FontWeight.w700,
                               ),
                             ),
-                            SizedBox(width: 8),
-                            Expanded(
+                            const SizedBox(width: 8),
+                            const Expanded(
                               child: Text(
                                 'laporanmu sudah dibersihkan bulan ini',
                                 style: TextStyle(
@@ -188,8 +189,8 @@ class BerandaPage extends StatelessWidget {
                             child: LaporanCard(
                               laporan: item,
                               onTap: () {
-                                Get.toNamed(
-                                  '/detail-laporan?tiket=${item.tiket}',
+                                Get.to(
+                                  () => DetailLaporanPage(tiket: item.tiket),
                                 );
                               },
                             ),

@@ -7,6 +7,7 @@ class Notifikasi {
   final String grup;
   final bool dibaca;
   final JenisNotifikasi jenis;
+  final String? tiket;
 
   const Notifikasi({
     required this.judul,
@@ -15,5 +16,6 @@ class Notifikasi {
     required this.grup,
     required this.dibaca,
     required this.jenis,
+    this.tiket,
   });
 }
