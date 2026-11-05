@@ -1,7 +1,7 @@
 import 'package:get/get.dart';
 
-import '../presentation/pages/detail_laporan/detail_laporan_page.dart';
-import '../presentation/pages/shell/home_shell.dart';
+import '../presentation/pages/detail_laporan_page.dart';
+import '../presentation/shell/home_shell.dart';
 
 class AppRouter {
   AppRouter._();

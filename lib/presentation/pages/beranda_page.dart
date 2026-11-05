@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../../core/config/app_theme.dart';
-import '../../controllers/laporan_controller.dart';
-import '../../widgets/laporan_card.dart';
+import '../themes/app_theme.dart';
+import '../controllers/laporan_controller.dart';
+import '../widgets/laporan_card.dart';
 
 class BerandaPage extends StatelessWidget {
   const BerandaPage({super.key});
