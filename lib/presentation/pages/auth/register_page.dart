@@ -9,13 +9,11 @@ class RegisterPage extends StatefulWidget {
 }
 
 class _RegisterPageState extends State<RegisterPage> {
-  // buat nyimpen isi input pendaftaran
   final namaController = TextEditingController();
   final emailController = TextEditingController();
   final hpController = TextEditingController();
   final pwController = TextEditingController();
 
-  // buat show/hide pw
   bool obscurePw = true;
 
   @override
@@ -27,7 +25,6 @@ class _RegisterPageState extends State<RegisterPage> {
     super.dispose();
   }
 
-  // cek semua input sebelum daftar
   void daftar() {
     if (namaController.text.isEmpty ||
         emailController.text.isEmpty ||
@@ -41,11 +38,13 @@ class _RegisterPageState extends State<RegisterPage> {
       return;
     }
 
-    // klo berhasil daftar, langsung ke beranda
+    // akun daftar otomatis jadi warga
     Navigator.pushReplacement(
       context,
       MaterialPageRoute(
-        builder: (context) => const HomeShell(),
+        builder: (context) => const HomeShell(
+          role: RolePengguna.warga,
+        ),
       ),
     );
   }
@@ -54,14 +53,11 @@ class _RegisterPageState extends State<RegisterPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xFFEAF4E4),
-
-      // appbar halaman daftar
       appBar: AppBar(
         backgroundColor: const Color(0xFF104B37),
         foregroundColor: Colors.white,
         title: const Text('Daftar sebagai warga'),
       ),
-
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(28),
         child: Column(
@@ -69,7 +65,6 @@ class _RegisterPageState extends State<RegisterPage> {
           children: [
             const SizedBox(height: 20),
 
-            // judul halaman
             const Text(
               'Buat akun',
               style: TextStyle(
@@ -77,6 +72,7 @@ class _RegisterPageState extends State<RegisterPage> {
                 fontWeight: FontWeight.bold,
               ),
             ),
+
             const SizedBox(height: 8),
 
             const Text(
@@ -85,6 +81,7 @@ class _RegisterPageState extends State<RegisterPage> {
                 color: Colors.black54,
               ),
             ),
+
             const SizedBox(height: 28),
 
             TextField(
@@ -94,6 +91,7 @@ class _RegisterPageState extends State<RegisterPage> {
                 prefixIcon: Icon(Icons.person_outline),
               ),
             ),
+
             const SizedBox(height: 18),
 
             TextField(
@@ -104,6 +102,7 @@ class _RegisterPageState extends State<RegisterPage> {
                 prefixIcon: Icon(Icons.email_outlined),
               ),
             ),
+
             const SizedBox(height: 18),
 
             TextField(
@@ -114,6 +113,7 @@ class _RegisterPageState extends State<RegisterPage> {
                 prefixIcon: Icon(Icons.phone_outlined),
               ),
             ),
+
             const SizedBox(height: 18),
 
             TextField(
@@ -129,7 +129,6 @@ class _RegisterPageState extends State<RegisterPage> {
                         : Icons.visibility,
                   ),
                   onPressed: () {
-                    // ubah pw jadi keliatan/sembunyi
                     setState(() {
                       obscurePw = !obscurePw;
                     });
@@ -137,9 +136,9 @@ class _RegisterPageState extends State<RegisterPage> {
                 ),
               ),
             ),
+
             const SizedBox(height: 28),
 
-            // tombol buat akun
             SizedBox(
               height: 52,
               child: ElevatedButton(
@@ -157,9 +156,9 @@ class _RegisterPageState extends State<RegisterPage> {
                 ),
               ),
             ),
+
             const SizedBox(height: 16),
 
-            // balik kehal login
             TextButton(
               onPressed: () {
                 Navigator.pop(context);
