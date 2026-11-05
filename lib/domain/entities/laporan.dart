@@ -65,4 +65,24 @@ class Laporan {
   };
 
   String get ringkasan => '$jenisLabel, volume $volumeLabel';
+
+  String get tanggalLabel {
+    final t = tanggal;
+    if (t == null) return '-';
+    const bulan = [
+      'Jan',
+      'Feb',
+      'Mar',
+      'Apr',
+      'Mei',
+      'Jun',
+      'Jul',
+      'Agu',
+      'Sep',
+      'Okt',
+      'Nov',
+      'Des',
+    ];
+    return '${t.day} ${bulan[t.month - 1]} ${t.year}';
+  }
 }

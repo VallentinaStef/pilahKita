@@ -18,6 +18,7 @@ class LaporanController extends GetxController {
   final daftarLaporan = <Laporan>[].obs;
   final detailLaporan = Rxn<Laporan>();
   final isLoading = false.obs;
+  final isLoadingDetail = false.obs;
 
   final filterAktif = FilterRiwayat.semua.obs;
 
@@ -29,14 +30,37 @@ class LaporanController extends GetxController {
 
   Future<void> muatLaporan() async {
     isLoading.value = true;
-    daftarLaporan.value = await getDaftarLaporan();
-    isLoading.value = false;
+    try {
+      final data = List<Laporan>.from(await getDaftarLaporan());
+      data.sort((a, b) {
+        final tanggalA = a.tanggal;
+        final tanggalB = b.tanggal;
+        if (tanggalA == null && tanggalB == null) return 0;
+        if (tanggalA == null) return 1;
+        if (tanggalB == null) return -1;
+        return tanggalB.compareTo(tanggalA);
+      });
+      daftarLaporan.value = data;
+    } finally {
+      isLoading.value = false;
+    }
   }
 
   Future<void> muatDetail(String tiket) async {
-    isLoading.value = true;
-    detailLaporan.value = await getDetailLaporan(tiket);
-    isLoading.value = false;
+    for (final laporan in daftarLaporan) {
+      if (laporan.tiket == tiket) {
+        detailLaporan.value = laporan;
+        isLoadingDetail.value = false;
+        return;
+      }
+    }
+
+    isLoadingDetail.value = true;
+    try {
+      detailLaporan.value = await getDetailLaporan(tiket);
+    } finally {
+      isLoadingDetail.value = false;
+    }
   }
 
   void ubahFilter(FilterRiwayat filter) {
@@ -62,8 +86,13 @@ class LaporanController extends GetxController {
   }
 
   List<Laporan> get laporanSaya {
-    if (daftarLaporan.length < 2) return daftarLaporan;
-    return daftarLaporan.take(2).toList();
+    return daftarLaporan
+        .where(
+          (l) =>
+              l.status == StatusLaporan.menunggu ||
+              l.status == StatusLaporan.diproses,
+        )
+        .toList();
   }
 
   int get jumlahSelesai =>

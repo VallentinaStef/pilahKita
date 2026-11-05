@@ -15,7 +15,6 @@ class LaporanRepositoryImpl implements LaporanRepository {
 
   @override
   Future<Laporan> getDetailLaporan(String tiket) async {
-    await Future.delayed(const Duration(milliseconds: 250));
     return DummyData.laporan.firstWhere(
       (l) => l.tiket == tiket,
       orElse: () => DummyData.laporan.first,
