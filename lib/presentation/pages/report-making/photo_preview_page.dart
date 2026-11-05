@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../themes/app_colors.dart';
-import '../widgets/app_back_header.dart';
-import '../widgets/primary_button.dart';
+import '../../themes/app_colors.dart';
+import '../../widgets/app_back_header.dart';
+import '../../widgets/primary_button.dart';
 
 class PhotoPreviewPage extends StatelessWidget {
   const PhotoPreviewPage({

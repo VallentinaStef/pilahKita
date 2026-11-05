@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../themes/app_colors.dart';
-import '../widgets/app_back_header.dart';
-import '../widgets/gallery_tile.dart';
-import '../widgets/primary_button.dart';
+import '../../themes/app_colors.dart';
+import '../../widgets/app_back_header.dart';
+import '../../widgets/gallery_tile.dart';
+import '../../widgets/primary_button.dart';
 
 class GalleryPage extends StatefulWidget {
   const GalleryPage({super.key});
@@ -15,26 +15,6 @@ class GalleryPage extends StatefulWidget {
 class _GalleryPageState extends State<GalleryPage> {
   static const _placeholderImage = 'lib/assets/sampah-numpuk.jpg';
   int? selectedIndex;
-
-  // warna sementara pengganti foto galeri
-  final List<Color> tileColors = const [
-    Color(0xFFC9DEC0),
-    Color(0xFFB3D0A8),
-    Color(0xFFB3D0A8),
-    Color(0xFFB3D0A8),
-    Color(0xFFE3EDD3),
-    Color(0xFFB3D0A8),
-    Color(0xFFB3D0A8),
-    Color(0xFFB3D0A8),
-    Color(0xFFC9DEC0),
-    Color(0xFFB3D0A8),
-    Color(0xFFB3D0A8),
-    Color(0xFFC9DEC0),
-    Color(0xFFB3D0A8),
-    Color(0xFFE3EDD3),
-    Color(0xFFB3D0A8),
-    Color(0xFFB3D0A8),
-  ];
 
   @override
   Widget build(BuildContext context) {
@@ -53,7 +33,7 @@ class _GalleryPageState extends State<GalleryPage> {
               const SizedBox(height: 24),
               Expanded(
                 child: GridView.builder(
-                  itemCount: tileColors.length,
+                  itemCount: 15,
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 3,
                     mainAxisSpacing: 6,
@@ -61,7 +41,6 @@ class _GalleryPageState extends State<GalleryPage> {
                   ),
                   itemBuilder: (context, index) {
                     return GalleryTile(
-                      color: tileColors[index],
                       imagePath: _placeholderImage,
                       isSelected: selectedIndex == index,
                       onTap: () => setState(() => selectedIndex = index),
