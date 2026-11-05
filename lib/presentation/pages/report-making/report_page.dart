@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:pilahkita/presentation/pages/camera_page.dart';
-import '../themes/app_colors.dart';
-import '../widgets/primary_button.dart';
-import '../../domain/entities/report_location.dart';
-import '../../domain/entities/report_status.dart';
-import '../../domain/entities/report_ticket.dart';
-import '../../domain/entities/waste_size.dart';
-import '../../domain/entities/waste_type.dart';
-import '../widgets/waste_size_option.dart';
-import '../widgets/waste_type_option.dart';
+import 'package:pilahkita/presentation/pages/report-making/camera_page.dart';
+import '../../themes/app_colors.dart';
+import '../../widgets/primary_button.dart';
+import '../../../domain/entities/report_location.dart';
+import '../../../domain/entities/report_status.dart';
+import '../../../domain/entities/report_ticket.dart';
+import '../../../domain/entities/waste_size.dart';
+import '../../../domain/entities/waste_type.dart';
+import '../../widgets/waste_size_option.dart';
+import '../../widgets/waste_type_option.dart';
 import 'pick_location_page.dart';
 import 'report_success_page.dart';
 
