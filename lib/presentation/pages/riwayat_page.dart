@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../../core/config/app_theme.dart';
-import '../../controllers/laporan_controller.dart';
-import '../../widgets/laporan_card.dart';
-import '../detail_laporan/detail_laporan_page.dart';
+import '../themes/app_theme.dart';
+import '../controllers/laporan_controller.dart';
+import '../widgets/laporan_card.dart';
+import 'detail_laporan_page.dart';
 
 class RiwayatPage extends GetView<LaporanController> {
   const RiwayatPage({super.key});

@@ -1,5 +1,5 @@
-import '../../domain/entities/laporan.dart';
-import '../../domain/entities/notifikasi.dart';
+import '../domain/entities/laporan.dart';
+import '../domain/entities/notifikasi.dart';
 
 class DummyData {
   DummyData._();
