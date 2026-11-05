@@ -4,11 +4,14 @@ import 'package:pilahkita/presentation/pages/camera_page.dart';
 import '../themes/app_colors.dart';
 import '../widgets/primary_button.dart';
 import '../../domain/entities/report_location.dart';
+import '../../domain/entities/report_status.dart';
+import '../../domain/entities/report_ticket.dart';
 import '../../domain/entities/waste_size.dart';
 import '../../domain/entities/waste_type.dart';
 import '../widgets/waste_size_option.dart';
 import '../widgets/waste_type_option.dart';
 import 'pick_location_page.dart';
+import 'report_success_page.dart';
 
 class ReportPage extends StatefulWidget {
   const ReportPage({super.key});
@@ -47,7 +50,11 @@ class _ReportPageState extends State<ReportPage> {
         hasLocation;
 
     if (isValid) {
-      Get.back();
+      const ticket = ReportTicket(
+        code: 'PK-0421',
+        status: ReportStatus.menungguValidasi,
+      );
+      Get.to(() => const ReportSuccessPage(ticket: ticket));
       return;
     }
 
