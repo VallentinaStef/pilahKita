@@ -9,7 +9,6 @@ import '../../domain/entities/waste_type.dart';
 import '../widgets/waste_size_option.dart';
 import '../widgets/waste_type_option.dart';
 import 'pick_location_page.dart';
-import '../../routes/app_router.dart';
 
 class ReportPage extends StatefulWidget {
   const ReportPage({super.key});
@@ -48,7 +47,7 @@ class _ReportPageState extends State<ReportPage> {
         hasLocation;
 
     if (isValid) {
-      Get.offAllNamed(AppRouter.home);
+      Get.back();
       return;
     }
 
