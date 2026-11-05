@@ -65,4 +65,7 @@ class LaporanController extends GetxController {
     if (daftarLaporan.length < 2) return daftarLaporan;
     return daftarLaporan.take(2).toList();
   }
+
+  int get jumlahSelesai =>
+      daftarLaporan.where((l) => l.status == StatusLaporan.selesai).length;
 }

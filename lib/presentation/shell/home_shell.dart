@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../widgets/bottom_nav_scaffold.dart';
 import '../pages/beranda_page.dart';
 import '../pages/notifikasi_page.dart';
+import '../pages/riwayat_page.dart';
 
 class HomeShell extends StatefulWidget {
   const HomeShell({super.key});
@@ -21,11 +22,7 @@ class _HomeShellState extends State<HomeShell> {
       onTap: (i) => setState(() => _index = i),
       child: IndexedStack(
         index: _index,
-        children: const [
-          BerandaPage(),
-          Center(child: Text('Riwayat')),
-          NotifikasiPage(),
-        ],
+        children: const [BerandaPage(), RiwayatPage(), NotifikasiPage()],
       ),
     );
   }

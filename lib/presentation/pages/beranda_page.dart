@@ -63,18 +63,18 @@ class BerandaPage extends StatelessWidget {
                           color: const Color(0xFF17643F),
                           borderRadius: BorderRadius.circular(24),
                         ),
-                        child: const Row(
+                        child: Row(
                           children: [
                             Text(
-                              '1',
-                              style: TextStyle(
+                              '${controller.jumlahSelesai}',
+                              style: const TextStyle(
                                 color: AppColors.accent,
                                 fontSize: 20,
                                 fontWeight: FontWeight.w700,
                               ),
                             ),
-                            SizedBox(width: 8),
-                            Expanded(
+                            const SizedBox(width: 8),
+                            const Expanded(
                               child: Text(
                                 'laporanmu sudah dibersihkan bulan ini',
                                 style: TextStyle(
