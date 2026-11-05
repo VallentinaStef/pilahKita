@@ -1,6 +1,10 @@
 import '../../domain/entities/laporan.dart';
-import '../../domain/repositories/laporan_repository.dart';
-import '../datasources/dummy_data.dart';
+import '../../data/dummy_data.dart';
+
+abstract class LaporanRepository {
+  Future<List<Laporan>> getDaftarLaporan();
+  Future<Laporan> getDetailLaporan(String tiket);
+}
 
 class LaporanRepositoryImpl implements LaporanRepository {
   @override

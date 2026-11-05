@@ -1,6 +1,6 @@
 import 'package:get/get.dart';
 
-import '../data/repositories/laporan_repository_impl.dart';
+import '../data/laporan_repository.dart';
 import '../domain/usecases/get_daftar_laporan.dart';
 import '../domain/usecases/get_detail_laporan.dart';
 import '../presentation/controllers/laporan_controller.dart';
