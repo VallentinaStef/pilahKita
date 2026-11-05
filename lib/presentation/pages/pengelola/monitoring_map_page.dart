@@ -5,7 +5,6 @@ import '../../themes/app_colors.dart';
 import '../../widgets/map_filter_chip.dart';
 import '../../widgets/report_summary_card.dart';
 
-// Halaman peta pemantauan untuk pengelola
 class MonitoringMapPage extends StatefulWidget {
   const MonitoringMapPage({super.key});
 
@@ -17,26 +16,11 @@ class _MonitoringMapPageState extends State<MonitoringMapPage> {
   int selectedIndex = 3;
 
   final List<_MapPin> pins = [
-    _MapPin(
-      alignment: Alignment(-0.53, -0.7),
-      report: DummyData.laporan[0],
-    ),
-    _MapPin(
-      alignment: Alignment(0.28, -0.76),
-      report: DummyData.laporan[1],
-    ),
-    _MapPin(
-      alignment: Alignment(0.6, -0.44),
-      report: DummyData.laporan[2],
-    ),
-    _MapPin(
-      alignment: Alignment(-0.2, -0.34),
-      report: DummyData.laporan[3],
-    ),
-    _MapPin(
-      alignment: Alignment(0.38, -0.16),
-      report: DummyData.laporan[4],
-    ),
+    _MapPin(alignment: Alignment(-0.53, -0.7), report: DummyData.laporan[0]),
+    _MapPin(alignment: Alignment(0.28, -0.76), report: DummyData.laporan[1]),
+    _MapPin(alignment: Alignment(0.6, -0.44), report: DummyData.laporan[2]),
+    _MapPin(alignment: Alignment(-0.2, -0.34), report: DummyData.laporan[3]),
+    _MapPin(alignment: Alignment(0.38, -0.16), report: DummyData.laporan[4]),
   ];
 
   Color getStatusColor(StatusLaporan status) {
@@ -92,28 +76,16 @@ class _MonitoringMapPageState extends State<MonitoringMapPage> {
                   MapFilterChip(
                     label: 'Semua status',
                     isActive: true,
-                    onTap: () {
-                      
-                    },
+                    onTap: () {},
                   ),
-                  MapFilterChip(
-                    label: 'Kategori',
-                    onTap: () {
-                      
-                    },
-                  ),
-                  MapFilterChip(
-                    label: 'Minggu ini',
-                    onTap: () {
-                      
-                    },
-                  ),
+                  MapFilterChip(label: 'Kategori', onTap: () {}),
+                  MapFilterChip(label: 'Minggu ini', onTap: () {}),
                 ],
               ),
             ),
           ),
 
-          // kartu ringkasan laporan yang dipilih
+          // kartu laporan di bawah
           Positioned(
             left: 16,
             right: 16,
