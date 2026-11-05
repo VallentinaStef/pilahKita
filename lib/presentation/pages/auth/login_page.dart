@@ -10,11 +10,9 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  // buat nyimpen isi input email dan pw
   final emailController = TextEditingController();
   final pwController = TextEditingController();
 
-  // buat show/hide pw
   bool obscurePw = true;
 
   final darkGreen = const Color(0xFF104B37);
@@ -28,10 +26,11 @@ class _LoginPageState extends State<LoginPage> {
     super.dispose();
   }
 
-  // cek input sebelum masuk ke beranda
   void login() {
-    if (emailController.text.isEmpty ||
-        pwController.text.isEmpty) {
+    final email = emailController.text.trim().toLowerCase();
+    final pw = pwController.text;
+
+    if (email.isEmpty || pw.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
           content: Text('Email dan password wajib diisi'),
@@ -40,11 +39,21 @@ class _LoginPageState extends State<LoginPage> {
       return;
     }
 
-    // kalau berhasil, langsung ke beranda
+    RolePengguna role;
+
+    // cek role dari belakang email
+    if (email.endsWith('@petugas.com')) {
+      role = RolePengguna.petugas;
+    } else if (email.endsWith('@pengelola.com')) {
+      role = RolePengguna.pengelola;
+    } else {
+      role = RolePengguna.warga;
+    }
+
     Navigator.pushReplacement(
       context,
       MaterialPageRoute(
-        builder: (context) => const HomeShell(),
+        builder: (context) => HomeShell(role: role),
       ),
     );
   }
@@ -56,7 +65,7 @@ class _LoginPageState extends State<LoginPage> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            // bagian atas login
+            // header login
             Container(
               height: 300,
               width: double.infinity,
@@ -98,7 +107,7 @@ class _LoginPageState extends State<LoginPage> {
               ),
             ),
 
-            // bagian form login
+            // form login
             Padding(
               padding: const EdgeInsets.all(28),
               child: Column(
@@ -129,6 +138,7 @@ class _LoginPageState extends State<LoginPage> {
                       prefixIcon: Icon(Icons.email_outlined),
                     ),
                   ),
+
                   const SizedBox(height: 20),
 
                   // input pw
@@ -145,7 +155,6 @@ class _LoginPageState extends State<LoginPage> {
                               : Icons.visibility,
                         ),
                         onPressed: () {
-                          // ubah pw jadi kelihatan/sembunyi
                           setState(() {
                             obscurePw = !obscurePw;
                           });
@@ -153,6 +162,7 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                     ),
                   ),
+
                   const SizedBox(height: 28),
 
                   // tombol masuk
@@ -173,9 +183,10 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                     ),
                   ),
+
                   const SizedBox(height: 16),
 
-                  // pindah ke halaman daftar
+                  // daftar warga
                   TextButton(
                     onPressed: () {
                       Navigator.push(
@@ -187,9 +198,9 @@ class _LoginPageState extends State<LoginPage> {
                     },
                     child: const Text('Daftar sebagai warga'),
                   ),
+
                   const SizedBox(height: 8),
 
-                  // info akun petugas/pengelola
                   const Text(
                     'Petugas dan Pengelola masuk dengan akun dari Pengelola.',
                     textAlign: TextAlign.center,
