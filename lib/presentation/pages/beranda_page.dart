@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import 'package:pilahkita/presentation/pages/report_page.dart';
+import 'package:pilahkita/presentation/pages/report-making/report_page.dart';
 import 'profil_page.dart';
 import '../themes/app_colors.dart';
 import '../controllers/laporan_controller.dart';

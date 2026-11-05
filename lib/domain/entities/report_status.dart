@@ -1,7 +1,7 @@
-// Baru satu status yang dipakai. Status lain (dalam proses, selesai)
-// ditambah saat halaman peta pengelola (2.7) dikerjakan.
 enum ReportStatus {
-  menungguValidasi('Menunggu validasi');
+  menungguValidasi('Menunggu validasi'),
+  dalamProses('Dalam proses'),
+  selesai('Selesai');
 
   final String label;
   const ReportStatus(this.label);
