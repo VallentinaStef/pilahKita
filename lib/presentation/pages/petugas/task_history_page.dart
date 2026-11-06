@@ -105,12 +105,7 @@ class _TaskHistoryPageState extends State<TaskHistoryPage> {
     bottomNavigationBar:
         widget.onBottomNavTap == null
             ? null
-            : PetugasPageFrame(
-              child: PetugasBottomNav(
-                currentIndex: 0,
-                onTap: widget.onBottomNavTap!,
-              ),
-            ),
+            : PetugasBottomNav(currentIndex: 0, onTap: widget.onBottomNavTap!),
   );
 }
 

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:pilahkita/presentation/pages/petugas/petugas_home_page.dart';
 import '../../shell/home_shell.dart';
 import '../../shell/pengelola_shell.dart';
+
 import 'register_page.dart';
 
 class LoginPage extends StatefulWidget {
@@ -44,9 +46,7 @@ class _LoginPageState extends State<LoginPage> {
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(
-          builder: (context) => const HomeShell(
-            role: RolePengguna.petugas,
-          ),
+          builder: (context) => const PetugasHomePage(),
         ),
       );
       return;
