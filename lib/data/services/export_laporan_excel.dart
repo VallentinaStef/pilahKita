@@ -1,8 +1,7 @@
-import 'dart:html' as html;
-
 import 'package:excel/excel.dart';
 
 import '../../domain/entities/laporan.dart';
+import 'save_exported_excel.dart';
 
 class ExportLaporanExcel {
   ExportLaporanExcel._();
@@ -69,21 +68,9 @@ class ExportLaporanExcel {
       throw Exception('Gagal membuat file Excel.');
     }
 
-    // Download langsung melalui browser
-    final blob = html.Blob([
+    await saveExcelFile(
       bytes,
-    ], 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-
-    final url = html.Url.createObjectUrlFromBlob(blob);
-
-    final anchor =
-        html.AnchorElement(href: url)
-          ..setAttribute(
-            'download',
-            'Rekap_PilahKita_${DateTime.now().millisecondsSinceEpoch}.xlsx',
-          )
-          ..click();
-
-    html.Url.revokeObjectUrl(url);
+      'Rekap_PilahKita_${DateTime.now().millisecondsSinceEpoch}.xlsx',
+    );
   }
 }
