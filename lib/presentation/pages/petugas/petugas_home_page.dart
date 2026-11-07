@@ -100,11 +100,13 @@ class _PetugasHomePageState extends State<PetugasHomePage> {
           child: IndexedStack(index: _selectedIndex, children: pages),
         ),
       ),
-      bottomNavigationBar: PetugasPageFrame(
-        child: PetugasBottomNav(
-          currentIndex: _selectedIndex,
-          onTap: (index) => setState(() => _selectedIndex = index),
-        ),
+      bottomNavigationBar: PetugasBottomNav(
+        currentIndex: _selectedIndex,
+        onTap: (index) {
+          setState(() {
+            _selectedIndex = index;
+          });
+        },
       ),
     );
   }

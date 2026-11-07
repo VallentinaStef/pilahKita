@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:pilahkita/presentation/pages/petugas/petugas_home_page.dart';
 import '../../shell/home_shell.dart';
 import '../../shell/pengelola_shell.dart';
+
 import 'register_page.dart';
 
 class LoginPage extends StatefulWidget {
@@ -44,9 +46,7 @@ class _LoginPageState extends State<LoginPage> {
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(
-          builder: (context) => const HomeShell(
-            role: RolePengguna.petugas,
-          ),
+          builder: (context) => const PetugasHomePage(),
         ),
       );
       return;
@@ -79,7 +79,7 @@ class _LoginPageState extends State<LoginPage> {
         content: Text('Email atau password salah'),
       ),
     );
-  }
+  } 
 
   @override
   Widget build(BuildContext context) {
@@ -209,7 +209,7 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                   const SizedBox(height: 8),
                   const Text(
-                    'Petugas dan Pengelola masuk dengan akun dari Pengelola.',
+                    'Petugas dan Pengelola masuk dengan akun yang diberikan.',
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       fontSize: 12,

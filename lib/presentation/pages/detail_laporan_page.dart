@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:pilahkita/presentation/pages/report-making/report_page.dart';
 
 import '../themes/app_colors.dart';
 import '../../domain/entities/laporan.dart';
 import '../controllers/laporan_controller.dart';
 import '../widgets/status_chip.dart';
+import 'report-making/report_page.dart';
 
 class DetailLaporanPage extends StatefulWidget {
   final String tiket;
@@ -411,7 +413,12 @@ class _DetailDitolak extends StatelessWidget {
             child: SizedBox(
               width: double.infinity,
               child: ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const ReportPage()),
+                  );
+                },
                 child: const Text('Buat laporan baru'),
               ),
             ),
