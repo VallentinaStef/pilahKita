@@ -209,7 +209,7 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                   const SizedBox(height: 8),
                   const Text(
-                    'Petugas dan Pengelola masuk dengan akun dari Pengelola.',
+                    'Petugas dan Pengelola masuk dengan akun yang diberikan.',
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       fontSize: 12,
