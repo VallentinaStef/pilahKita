@@ -79,7 +79,7 @@ class _LoginPageState extends State<LoginPage> {
         content: Text('Email atau password salah'),
       ),
     );
-  }
+  } 
 
   @override
   Widget build(BuildContext context) {
